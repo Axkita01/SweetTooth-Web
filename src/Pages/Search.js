@@ -28,8 +28,8 @@ const styles = {
     searchBtn: {
       //Background color logic inlined
       display: 'flex',
-      height: Dimensions.get('window').height * 0.08,
-      width: Dimensions.get('window').width * 0.3,
+      height: '8%',
+      width: '3%',
       margin: 10,
       textAlign: 'center',
       justifyContent: 'center',
@@ -44,24 +44,24 @@ const styles = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: Dimensions.get('window').width * 0.05,
+      fontSize: '5%',
       textAlign: 'center',
       
-      marginBottom: Dimensions.get('window').height * 0.02,
+      marginBottom: '2%',
       color: 'white',
     },
   
     searchSaveBtn: {
       display: 'flex',
       position: 'relative',
-      bottom: Dimensions.get('window').height * 0.3,
+      bottom: '30%',
       backgroundColor: 'white',
       padding: 10,
       borderRadius: 10,
       borderColor: 'pink',
       borderWidth: 1,
-      height: Dimensions.get('window').height * 0.08,
-      width: Dimensions.get('window').width * 0.3,
+      height: '8%',
+      width: '30%',
       alignItems: 'center',
       justifyContent: 'center',
   
@@ -69,13 +69,13 @@ const styles = {
   
     backBtn: {
       position: 'absolute',
-      top: Dimensions.get('window').height * 0.05,
-      left: Dimensions.get('window').width * 0.05,
+      top: '5%',
+      left: '5%',
     },
   
     textInputContainer: {
-      height: Dimensions.get('window').height * 0.05,
-      width: Dimensions.get('window').width * 0.3,
+      height: '5%',
+      width: '30%',
       backgroundColor: 'white',
       borderRadius: 10,
       borderColor: 'pink',
@@ -86,15 +86,17 @@ const styles = {
     }
   }
 
-export default function Search() {
+const searchArr = ['Coffee', 'Boba', 'Ice Cream', 'Bakery']
 
-    const [searchSelectBtn, setSearchSelectBtn] = React.useState([true, true, true, true])
+export default function Search(props) {
+
+    const [searchSelectBtn, setSearchSelectBtn] = React.useState(props.selected)
 
     useEffect(() => {
         let search = localStorage.getItem('search')
         if (search) {
             search = JSON.parse(search)
-            setSearchSelectBtn(search)
+            setSearchSelectBtn(search.search)
         }
 
         else {
@@ -102,47 +104,41 @@ export default function Search() {
         }
     }, [])
 
+    const search = searchSelectBtn.map((item, index) => {
+        return (
+            <div>
+              <button 
+              style = {{...styles.searchBtn, backgroundColor: item ? 'pink' : 'gray'}}
+              onClick = {() => {
+                let temp = searchSelectBtn.slice()
+                temp[index] = !temp[index]
+                setSearchSelectBtn(temp)
+              }}>
+                  {searchArr[index]}
+              </button>
+            </div>
+          )
+
+    })
   return (
-    <div style = {{...styles.container, width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height, backgroundColor: '#ffBBDD'}}>
+    <div style = {{...styles.container, width: '100%',
+    height: '100%', backgroundColor: '#ffBBDD'}}>
       <button style = {styles.backBtn}>
         Back
       </button>
         <div style = {{marginTop: '11%'}}>
         Search Change
-          <FlatList
-          scrollEnabled = {false}
-          data = {searchSelectBtn}
-          height = {Dimensions.get('window').height*.3}
-          renderItem = {({item, index}) => {
-            return (
-              <div>
-                <button 
-                style = {{...styles.searchBtn, backgroundColor: item ? 'pink' : 'gray'}}
-                onPress = {() => {
-                  let temp = searchSelectBtn.slice()
-                  temp[index] = !temp[index]
-                  setSearchSelectBtn(temp)
-                }}>
-                    {searchArr[index]}
-                </button>
-              </div>
-            )
-          }}/>
+          {search}
         </div>
         <div>
           <button style = {styles.searchSaveBtn} 
-          onPress = {() => {
-            setSearchSelect(searchSelectBtn); 
-            searchChange(searchSelectBtn, places);
-            AsyncStorage.setItem('search', JSON.stringify({search: searchSelectBtn})); 
-            navigation.navigate('map')
+          onClick = {() => {
+            console.log('btn', searchSelectBtn)
+            localStorage.setItem('search', JSON.stringify({search: searchSelectBtn})); 
+            window.location.href = '/'
           }}>
-            <Text
-            adjustsFontSizeToFit = {true}
-            numberOfLines = {1}
-            style = {{color: 'pink', fontFamily: 'Kannit', backgroundColor: 'white', textAlign: 'center', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold'}}>
-            Apply Changes</Text>
+
+            Apply Changes
           </button>
         </div>
       </div>

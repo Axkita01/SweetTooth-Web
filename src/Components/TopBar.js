@@ -88,7 +88,7 @@ export default function TopBar (props) {
                 Toggle List
             </button>
             <button style = {styles(1).navButton} onClick={() => {
-                props.navigation.navigate('search')
+                window.location.href = '/search'
             }}>
                 Change Search
             </button>

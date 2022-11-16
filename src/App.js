@@ -3,6 +3,7 @@ import axios from 'axios';
 import {BrowserRouter as Router, Switch, Route, Link, Routes} from 'react-router-dom';
 import Mapped from './Views/MapView';
 import devPlaces from './assets/tempMapPlaces.json';
+import Search from './Pages/Search';
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
@@ -20,6 +21,8 @@ export default function App() {
   const tmpAmount = React.useRef(20)
 
   function searchChange (searchSelect, places) {
+    console.log(places, 'places')
+
     let filter = []
     for (let i = 0; i < searchSelect.length; i++) {
       if (searchSelect[i]) {
@@ -65,11 +68,14 @@ export default function App() {
       }
       let p = []
       prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
+      prevDistance = 0
       if (prevDistance < 5) {
         var prevPlaces = localStorage.getItem('places')
-        p = JSON.parse(prevPlaces)
-        setPlaces(p)
-        console.log('loaded from cache')
+        //p = JSON.parse(prevPlaces)
+        //remove below and uncomment above in production
+        console.log('places set')
+        setPlaces(devPlaces.places)
+        p = devPlaces.places
       }
 
       else {
@@ -95,7 +101,7 @@ export default function App() {
     setPlaces(p)
   }
   
-  console.log(p)
+  
   let food_types = {}
   //EXTREMELY inefficient, make O(n) later using sets
   for (let i = 0; i < p.length; i++) {
@@ -123,20 +129,21 @@ export default function App() {
     toggleCardScroll(false)
     localStorage.setItem('scroll', 'false')
   }
-
-  let search = localStorage.getItem('search')
-  localStorage.setItem('places', JSON.stringify(places))
+  
+      let search = localStorage.getItem('search')
+      localStorage.setItem('places', JSON.stringify(p))
+      
           if (search) {
             search = JSON.parse(search).search
-            setSearchSelectBtn(search)
-            searchChange(search, places)
+            searchChange(search, p)
           }
           else {
-            searchChange([true, true, true, true], places);
+            searchChange([true, true, true, true], p);
+            localStorage.setItem('search', JSON.stringify({search: [true, true, true, true]}))
           }
 
         let a = localStorage.getItem('amount')
-        console.log(amount)
+        
         if (a) {
           setAmount(parseInt(a))
           tmpAmount.current = parseInt(a)
@@ -150,12 +157,15 @@ export default function App() {
       
   }); setLoading(false)}, [])
 
-
+  console.log(places, 'places')
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element= {<Mapped places = {devPlaces.places[1]}/>}/>
+          <Route path="/" element= {<Mapped places = {curPlaces}/>}/>
+          <Route path="/search" element = {<Search 
+          selected = {searchSelect}
+          tot_places = {places}/>}/>
         </Routes>
       </Router>
     </>

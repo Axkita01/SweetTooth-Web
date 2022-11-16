@@ -151,7 +151,7 @@ export default function Mapped (props) {
         >
             {/*NavBar*/}
             <TopBar 
-            navigation = {props.navigation}
+            
             //refreshfunc = {() => {props.refresh;}}
             cardToggle = {() => {toggleCards((prev) => !prev)}}
             settingsToggle = {() => {props.navigation.navigate('settings')}}
