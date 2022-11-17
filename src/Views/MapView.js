@@ -99,7 +99,7 @@ export default function Mapped (props) {
              setPlaceLocation([marker.geometry.location.lat, marker.geometry.location.lng])
              setSwiperIndex(index)
             toggleCards(true)
-            setZoom(15)
+            setZoom(18)
          }}
          anchor = {[marker.geometry.location.lat, marker.geometry.location.lng]}
          title = {marker.name}
@@ -139,10 +139,11 @@ export default function Mapped (props) {
                 card_lst = {card_lst} 
                 navigate = {(location) => {
                 setPlaceLocation(location);
-                toggleCards(false);}}
+                setZoom(18)
+            }}
                 navigation = {props.navigation}/>
         )
-    }, [state.places, props.scrollable])
+    }, [state.places])
     
     return (
     
@@ -164,9 +165,13 @@ export default function Mapped (props) {
             
             {/*Map*/}
             <Map
+            onBoundsChanged={({center,zoom}) => {
+               setPlaceLocation(center)
+               setZoom(zoom)
+            }}
             style = {styles.map}
             center = {placeLocation}
-            //minZoom = {10}
+            minZoom = {10}
             showsUserLocation = {true}
             zoom = {zoom}
             >

@@ -157,10 +157,8 @@ export default function DessertCard(props) {
     }
     
     function reducer (picState, action) {
-        console.log(picState)
         switch (action.type) {
             case 'toggle':
-                console.log(picState.picIdx)
                 let temp = picState.picIdx + 1
                 let image_length = Object.keys(images).length
                 if (temp == image_length) {
@@ -237,8 +235,8 @@ export default function DessertCard(props) {
 
                 <button 
                 style = {{...styles().placebtn, padding: 0, alignItems: 'center', backgroundColor: 'transparent', position: 'relative', bottom: '.03vh', borderWidth: 0}}
-                onPress = {() => {
-                    window.location.href = `https://www.google.com/maps/place/?q=${props.name}, ${props.address}`
+                onClick = {() => {
+                    window.open(`https://www.google.com/maps/place/?q=${props.name}, ${props.address}`)
                 }}
                 >
                     <img 

@@ -43,6 +43,7 @@ export default function App() {
   }
 
   React.useEffect(() => {
+    console.log('useEffect')
    if (!navigator.geolocation) {alert('Geolocation is not supported by your browser'); return}
 
     navigator.geolocation.getCurrentPosition((position) => {
@@ -155,14 +156,21 @@ export default function App() {
           localStorage.setItem('amount', '20')
         }
       
-  }); setLoading(false)}, [])
+  }); setLoading(false)}
 
-  console.log(places, 'places')
+  
+  , [])
+
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element= {<Mapped places = {curPlaces}/>}/>
+          <Route path="/" element= {
+          userLocation ?
+          <Mapped 
+          places = {curPlaces} 
+          userLocation = {[userLocation.lat, userLocation.lng]
+          }/>: <div>Loading...</div>}/>
           <Route path="/search" element = {<Search 
           selected = {searchSelect}
           tot_places = {places}/>}/>
