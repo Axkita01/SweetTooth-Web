@@ -67,14 +67,14 @@ export default function App() {
           lng: position.coords.longitude
         }))
       }
-
+      //console.log(devPlaces)
       let p = []
       prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
       prevDistance = 0
       if (prevDistance < 5) {
         var prevPlaces = localStorage.getItem('places')
         p = JSON.parse(prevPlaces)
-        p = [devPlaces.results]
+        p = [devPlaces.businesses]
         p.push([])
         p.push([])
         p.push([])

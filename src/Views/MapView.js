@@ -84,26 +84,30 @@ export default function Mapped (props) {
         return state.places
     }, [state.places])
 
+    console.log(state.places)
     //get markers from props as list then map to markers
     const markers = useMemo(
         () => {
         return (
         state.places.map((marker, index) => {
-        if (!marker) {
+        let lat = marker.coordinates.latitude
+        let lon = marker.coordinates.longitude
+        if (!marker || marker === undefined) {
          return null
         }
+        console.log(marker)
         return (
          <Marker
          index = {index}
          loadingEnabled = {true}
          image = {icon}
          onClick = {() => {
-             setPlaceLocation([marker.geometry.location.lat, marker.geometry.location.lng])
+             setPlaceLocation([lat, lon])
              setSwiperIndex(index)
              toggleCards(true) 
              setZoom(18)
          }}
-         anchor = {[marker.geometry.location.lat, marker.geometry.location.lng]}
+         anchor = {[lat, lon]}
          title = {marker.name}
          key = {index}
          />)} ))}, [state.places])
@@ -137,7 +141,6 @@ export default function Mapped (props) {
                 style = {{background: 'transparent'}}
                 images = {images}
                 index = {swiperIndex}
-                scrollable = {props.scrollable}
                 card_lst = {card_lst} 
                 navigate = {(location) => {
                 setPlaceLocation(location);
@@ -177,7 +180,7 @@ export default function Mapped (props) {
             }}
             style = {styles.map}
             center = {placeLocation}
-            minZoom = {10}
+            //minZoom = {10}
             showsUserLocation = {true}
             zoom = {zoom}
             >

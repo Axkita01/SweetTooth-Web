@@ -26,25 +26,27 @@ export default function SweetSwiper(props) {
     var list = useRef();
 
     const renderCard = (item, index) => {
+        
         return (
             <SwiperSlide style = {{background: 'transparent', overflow: 'visible'}} key = {index}>
             <DessertCard
-                   
                     images = {images}
-                    location = {item.geometry.location}
-                    address = {item.formatted_address}
+                    place_img = {item.image_url}
+                    open = {item.is_closed}
+                    location = {item.coordinates}
+                    address = {`${item.location.address1} ${item.location.city}, ${item.location.state} ${item.location.zip_ode}`}
                     navigation = {props.navigation}
                     //change length to props.card_lst.length
                     length = {props.card_lst.length}
                     idx = {index}
                     types = {item.type}
                     rating = {item.rating}
-                    num_ratings = {item.user_ratings_total}
+                    num_ratings = {item.review_count}
                     name = {item.name}
-                    key = {item.place_id}
-                    reviews = {item.reviews}
+                    key = {item.id}
+                    //reviews = {item.reviews}
                     navigatefunc = {() => {
-                    props.navigate([item.geometry.location.lat, item.geometry.location.lng])
+                    props.navigate([item.coordinates.latitude, item.coordinates.longitude])
                 }}
                     />
             </SwiperSlide>
@@ -69,7 +71,7 @@ export default function SweetSwiper(props) {
         return <div style = {{position: 'absolute', top: 0}}>No Places</div>
     }
     return (
-        <div  style = {{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'transparent', position: 'absolute', right: '30vw', top: '21%'}}>
+        <div  style = {{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'transparent', position: 'absolute', right: '30vw', top: '15%'}}>
             <Swiper
             onInit={(ev) => {
                 list.current = ev;
@@ -79,7 +81,7 @@ export default function SweetSwiper(props) {
             rewind = {true}
             spaceBetween={50}
             slidesPerView={1}
-            style = {{width: '25%', height: '40%',background: 'transparent'}}
+            style = {{width: '40%', height: '40%',background: 'transparent', marginLeft: '35%'}}
             scrollbar={{ draggable: true }}
             >
             <List
@@ -88,7 +90,7 @@ export default function SweetSwiper(props) {
                 {cards}
             </List>
             </Swiper>
-        <div style = {{width: '25%',display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+        <div style = {{marginLeft: '10%', width: '25%',display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
         <button 
         onClick = {() => {list.current.slidePrev(1000, false)}}
         style = {{height: '3vw', width: '2vw', fontSize: '1vw', position: 'relative', zIndex: 1, padding: 0, margin: 0}}

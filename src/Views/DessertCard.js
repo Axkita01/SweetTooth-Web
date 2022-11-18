@@ -20,16 +20,17 @@ const styles = (intensity = 0, glow = 0) => {
 return (
     {
     container: {
+        marginBottom: '1vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'top',
         alignItems: 'center',
         width: '95%',
         height: '100%',
+        paddingBottom: '6%',
         backgroundColor: 'rgb(255, 220, 220)',
         zIndex: 2,
         borderRadius: '2vw',
-        marginBottom: '1vh',
         shadowColor: `rgb(${1.3 * intensity <= 255 ? 1.3 * intensity: 255}, ${.6 * intensity <= 105 ? .6 * intensity: 105}, ${.7 * intensity <= 180 ? .7 * intensity: 180})`,
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: intensity >= 130 ? glow: 0,
@@ -45,9 +46,9 @@ return (
         fontSize: '1.5vw',
         flexDirection: 'row',
         justifyContent: 'center',
+        margin: '1vw',
         alignItems: 'center',
         width: '100%',
-        height: '5vw',
         backgroundColor: 'transparent'
     },
 
@@ -171,8 +172,10 @@ export default function DessertCard(props) {
     const [loading, setLoading] = useState(true)
     const types_list = useRef()
     
+    //remove once loading
     const noWarning = loading
     
+
     useEffect(() => {
         if (props.types.length > 1) {
         let scroll = setInterval(() => {
@@ -199,15 +202,16 @@ export default function DessertCard(props) {
             </div>
         )
     })
-
+    console.log(props.place_img)
     return (
             
         <div style = {styles(intensity()).container}>
-            <div style = {styles().topBar}>
+            <div style = {{...styles().topBar, marginBottom: '2%'}}>
                 <img
                 style = {styles().image} src={logo}
                 />
             </div>
+
             <div style = {{...styles(0).innerContainer, overflowY: 'visible', fontFamily: 'Kannit'}}>
                 {`${props.name}`}
             </div>
@@ -215,18 +219,29 @@ export default function DessertCard(props) {
             <div style = {styles().innerContainer}>
                 {`Rating: ${props.rating}`}
             </div>
+
+
              
             <div style = {styles().innerContainer}>
                 
                 {`Reviews: ${props.num_ratings}\n`}
             </div>
+            
+
+
             <div style = {{...styles().innerContainer, 
             alignItems: 'center',
+            flexDirection: 'row',
             width: '75%',
             height: '10vw',
         }} >
                 {types_list.current[picState.picIdx]}
+                <div style = {styles().innerContainer}>
+                <img src = {props.place_img} style = {{width: '7vw', height: '7vw', borderRadius: '1vw'}}/>
             </div>
+            </div>
+
+
             <div style = {styles().innerContainer}>
                 <button style = {styles().placebtn} onClick={props.navigatefunc}>
                         Go to place
