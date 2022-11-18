@@ -133,7 +133,6 @@ return (
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: '1%',
-        backgroundColor: 'white',
         width: 'auto',
         marginRight: 3,
         fontFamily: 'Kannit',
@@ -144,7 +143,6 @@ return (
     }})
 }
 
-const type = ['Ice Cream', 'Coffee', 'Boba', 'Bakery']
 export default function DessertCard(props) {
     //Props are name, image, rating, and description, num_ratings, navigatefunc (maybe more later) type is list of strings denoting types of desserts
     const intensity = () => {
@@ -161,7 +159,7 @@ export default function DessertCard(props) {
             case 'toggle':
                 let temp = picState.picIdx + 1
                 let image_length = Object.keys(images).length
-                if (temp == image_length) {
+                if (temp === image_length) {
                     temp = 0
                 }
                 return {picIdx: temp}
@@ -169,32 +167,33 @@ export default function DessertCard(props) {
     }
 
     const [picState, picDispatch] = useReducer(reducer, {picIdx: 0})
+    //FIXME: implement placeholder for loading
     const [loading, setLoading] = useState(true)
     const types_list = useRef()
     
-
+    const noWarning = loading
     
     useEffect(() => {
+        if (props.types.length > 1) {
         let scroll = setInterval(() => {
-            picDispatch({type: 'toggle'})
+            picDispatch({type: 'toggle'});
+            return (
+                () => {
+                    clearInterval(scroll)
+                }
+            )
         }, 3000)
-        setLoading(false)
-        
-        return (
-            () => {
-                clearInterval(scroll)
-            }
-        )
-    }, [])
+    }
+        setLoading(false)}, [])
     
-    
-    types_list.current = type.map((type) => {
+    console.log(props.types)
+    types_list.current = props.types.map((type) => {
         return (
             <div style = {styles().single_review}>
                         <img
                         src = {images[type]}
-                        style = {{width: '100%', height: '80%', marginBottom: '10%', backgroundColor: 'white', height: '100%', maxHeight: 'inherit', maxWidth: 'inherit', objectFit: 'contain'}}
-                        resizeMode = 'contain'
+                        style = {{width: '100%',  marginBottom: '10%', backgroundColor: 'white', height: '100%', maxHeight: 'inherit', maxWidth: 'inherit', objectFit: 'contain'}}
+                        
                         backgroundColor = 'transparent'
                         />
             </div>
@@ -207,7 +206,7 @@ export default function DessertCard(props) {
             <div style = {styles().topBar}>
                 <img
                 style = {styles().image} src={logo}
-                resizeMode = 'contain'/>
+                />
             </div>
             <div style = {{...styles(0).innerContainer, overflowY: 'visible', fontFamily: 'Kannit'}}>
                 {`${props.name}`}
@@ -241,7 +240,7 @@ export default function DessertCard(props) {
                 >
                     <img 
                     src = {googleLogo}
-                    resizeMode = 'contain'
+                    
                     style = {{height: '100%', width: '100%'}}/>
                 
                 </button>

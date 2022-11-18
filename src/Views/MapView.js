@@ -7,7 +7,7 @@ import Bakery from '../assets/Bakery.png';
 import Coffee from '../assets/Coffee.png';
 import IceCream from '../assets/IceCream.png';
 import icon from '../assets/final.png';
-import MyMarker from '../Components/CustomMarker'
+
 
 
 const styles = {
@@ -74,6 +74,7 @@ export default function Mapped (props) {
         
         }
     }
+
     const [swiperIndex, setSwiperIndex] = React.useState(0)
     const [cards, toggleCards] = React.useState(false)
     const [state, dispatch] = React.useReducer(reducer, {places: []})
@@ -82,6 +83,7 @@ export default function Mapped (props) {
     const card_lst = useMemo(() => {
         return state.places
     }, [state.places])
+
     //get markers from props as list then map to markers
     const markers = useMemo(
         () => {
@@ -98,8 +100,8 @@ export default function Mapped (props) {
          onClick = {() => {
              setPlaceLocation([marker.geometry.location.lat, marker.geometry.location.lng])
              setSwiperIndex(index)
-            toggleCards(true)
-            setZoom(18)
+             toggleCards(true) 
+             setZoom(18)
          }}
          anchor = {[marker.geometry.location.lat, marker.geometry.location.lng]}
          title = {marker.name}
@@ -114,10 +116,10 @@ export default function Mapped (props) {
         let total = []
         for (let i = props.places.length - 1; i >= 0; i--) {
             place = props.places[i]
-            if (place == undefined || seen.has(place.place_id)) {
+            if (place === undefined || seen.has(place.place_id)) {
                 continue
             }
-            else if (count == props.amount) {break}
+            else if (count === props.amount) {break}
             else {
                 seen.add(place.place_id)
                 count++
@@ -143,21 +145,25 @@ export default function Mapped (props) {
             }}
                 navigation = {props.navigation}/>
         )
-    }, [state.places])
+    }, [state.places, swiperIndex])
     
+    const MemoizedTopBar = React.useMemo(() => {
+        return (
+            <TopBar 
+            //refreshfunc = {() => {props.refresh;}}
+            cardToggle = {() => {toggleCards((prev) => !prev)}}
+            settingsToggle = {() => {window.location.href = '/settings'}}
+            cardsEnabled = {toggleCards}
+            ></TopBar>
+        )
+    }, [])
     return (
     
         <div style = {styles.container} 
 
         >
             {/*NavBar*/}
-            <TopBar 
-            
-            //refreshfunc = {() => {props.refresh;}}
-            cardToggle = {() => {toggleCards((prev) => !prev)}}
-            settingsToggle = {() => {props.navigation.navigate('settings')}}
-            cardsEnabled = {toggleCards}
-            ></TopBar>
+            {MemoizedTopBar}
         
             {/*Popup Cards*/}
 

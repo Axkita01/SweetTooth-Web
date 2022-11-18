@@ -5,6 +5,7 @@ import Mapped from './Views/MapView';
 import devPlaces from './assets/tempMapPlaces.json';
 import Search from './Pages/Search';
 
+
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
 const GOOGLE_PLACES_API_BASE_URL = 'https://maps.googleapis.com/maps/api/place'
@@ -55,7 +56,6 @@ export default function App() {
       let prevLocation = localStorage.getItem('userLocation')
       let prevDistance;
       if (prevLocation) {
-        console.log('memo')
         prevLocation = JSON.parse(prevLocation)
         prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
       }
@@ -67,25 +67,33 @@ export default function App() {
           lng: position.coords.longitude
         }))
       }
+
       let p = []
       prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
       prevDistance = 0
       if (prevDistance < 5) {
         var prevPlaces = localStorage.getItem('places')
-        //p = JSON.parse(prevPlaces)
+        p = JSON.parse(prevPlaces)
+        p = [devPlaces.results]
+        p.push([])
+        p.push([])
+        p.push([])
+        console.log(p)
         //remove below and uncomment above in production
-        console.log('places set')
-        setPlaces(devPlaces.places)
-        p = devPlaces.places
+        //console.log('places set')
+        setPlaces(p)
+        //p = devPlaces.places
       }
 
       else {
         console.log('loaded from api')
-        for (var index = 0; index < searchArr.length; index++) {
+        for (var index = 0; index < 1/*searchArr.length*/; index++) {
           console.log('for')
+
+          //integrate javascript API
            axios.request({
-           method: 'post',
-           url: `${GOOGLE_PLACES_API_BASE_URL}/textsearch/json?key=***&query=${searchArr[index]}&location=${position.coords.latitude},${position.coords.longitude}&radius=25&types=establishment`
+           method: 'get',
+           url: `${GOOGLE_PLACES_API_BASE_URL}/textsearch/json?key=AIzaSyCrkw8_m93lrUuwfPOgqOTSUMFvX7znkJ8&query=${searchArr[index]}&location=${position.coords.latitude},${position.coords.longitude}&radius=25&types=establishment`
          }).then((response) => {
            console.log('pinged', response.data.results)
            response.data.results.sort(
@@ -97,8 +105,10 @@ export default function App() {
            p.push(response.data.results)
      }).catch((e) => console.log(e))
       }
+
+
     localStorage.setItem('places', JSON.stringify(p))
-    localStorage.setItem('location', JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
+    localStorage.setItem('userLocation', JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
     setPlaces(p)
   }
   
@@ -171,7 +181,8 @@ export default function App() {
           places = {curPlaces} 
           userLocation = {[userLocation.lat, userLocation.lng]
           }/>: <div>Loading...</div>}/>
-          <Route path="/search" element = {<Search 
+          <Route path="/search" element = {
+          <Search 
           selected = {searchSelect}
           tot_places = {places}/>}/>
         </Routes>

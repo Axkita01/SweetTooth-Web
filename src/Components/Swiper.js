@@ -1,19 +1,14 @@
 
-import { useState, useRef, useMemo, memo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import DessertCard from '../Views/DessertCard';
 import IceCream from '../assets/IceCream.png';
 import Coffee from '../assets/Coffee.png';
 import Bakery from '../assets/Bakery.png';
 import Boba from '../assets/Boba.png';
-import devPlaces from '../assets/tempMapPlaces.json'
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import { FixedSizeList as List } from 'react-window';
 
-
-
-
-const card_lst = devPlaces.places[1]
 const images = {
     'Boba': Boba,
     'Bakery': Bakery,
@@ -28,13 +23,11 @@ export default function SweetSwiper(props) {
     
     //properties card_lst, navigate
     
-    const [index, setIndex] = useState(props.index);
-    const [refresh, setRefresh] = useState(true);
     var list = useRef();
 
     const renderCard = (item, index) => {
         return (
-            <SwiperSlide style = {{background: 'transparent', overflow: 'visible'}}>
+            <SwiperSlide style = {{background: 'transparent', overflow: 'visible'}} key = {index}>
             <DessertCard
                    
                     images = {images}
@@ -42,43 +35,39 @@ export default function SweetSwiper(props) {
                     address = {item.formatted_address}
                     navigation = {props.navigation}
                     //change length to props.card_lst.length
-                    length = {card_lst.length}
+                    length = {props.card_lst.length}
                     idx = {index}
                     types = {item.type}
                     rating = {item.rating}
                     num_ratings = {item.user_ratings_total}
                     name = {item.name}
-                    scrollUp = {() => {
-                        if (index > 0) {
-                            list.current.scrollToIndex({index: index - 1, animated: true});
-                            setIndex(index - 1);
-                        }
-                    }}
-                    scrollDown = {() => {
-                        if (index < props.card_lst.length - 1) {
-                            list.current.scrollToIndex({index: index + 1, animated: true});
-                            setIndex(index + 1);
-                        }
-                    }}
                     key = {item.place_id}
                     reviews = {item.reviews}
                     navigatefunc = {() => {
                     props.navigate([item.geometry.location.lat, item.geometry.location.lng])
                 }}
                     />
-                    </SwiperSlide>
-        
+            </SwiperSlide>
         
         )
     }
     
-    const memoizedCard = useMemo(() => renderCard, [props.card_lst, props.scrollable])
-    
+
     //change back to props.card_lst, and optimize cards to limit rerenders
     const cards =  useMemo(() => 
-    card_lst.map((item, index) => {return (renderCard(item, index))}),
-    [props.card_lst])
+                    props.card_lst.map(
+                        (item, index) => {
+                            return (renderCard(item, index))
+                        }),
+            [props.card_lst])
     
+    useEffect(() => {
+        list.current.slideTo(props.index)
+    }, 
+    [props.index])
+    if (props.card_lst.length == 0) {
+        return <div style = {{position: 'absolute', top: 0}}>No Places</div>
+    }
     return (
         <div  style = {{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'transparent', position: 'absolute', right: '30vw', top: '21%'}}>
             <Swiper
@@ -86,7 +75,7 @@ export default function SweetSwiper(props) {
                 list.current = ev;
             }}
             lazy = {true}
-            initialSlide = {index}
+            initialSlide = {props.index}
             rewind = {true}
             spaceBetween={50}
             slidesPerView={1}

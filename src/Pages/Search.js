@@ -9,6 +9,17 @@ const styles = {
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
+      width: '100vw',
+      height: '100vh',
+    },
+
+    innerContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '30%',
     },
   
     input: {
@@ -28,8 +39,8 @@ const styles = {
     searchBtn: {
       //Background color logic inlined
       display: 'flex',
-      height: '8%',
-      width: '3%',
+      height: '50%',
+      width: '30%',
       margin: 10,
       textAlign: 'center',
       justifyContent: 'center',
@@ -46,7 +57,6 @@ const styles = {
       justifyContent: 'center',
       fontSize: '5%',
       textAlign: 'center',
-      
       marginBottom: '2%',
       color: 'white',
     },
@@ -60,7 +70,7 @@ const styles = {
       borderRadius: 10,
       borderColor: 'pink',
       borderWidth: 1,
-      height: '8%',
+      height: '30%',
       width: '30%',
       alignItems: 'center',
       justifyContent: 'center',
@@ -106,7 +116,7 @@ export default function Search(props) {
 
     const search = searchSelectBtn.map((item, index) => {
         return (
-            <div>
+            
               <button 
               style = {{...styles.searchBtn, backgroundColor: item ? 'pink' : 'gray'}}
               onClick = {() => {
@@ -116,21 +126,22 @@ export default function Search(props) {
               }}>
                   {searchArr[index]}
               </button>
-            </div>
+            
           )
 
     })
   return (
-    <div style = {{...styles.container, width: '100%',
-    height: '100%', backgroundColor: '#ffBBDD'}}>
-      <button style = {styles.backBtn}>
+    <div style = {{...styles.container, backgroundColor: '#ffBBDD'}}>
+      <button style = {styles.backBtn} onClick = {() => {window.location.href = '/'}}>
         Back
       </button>
-        <div style = {{marginTop: '11%'}}>
+
+        <div style = {{...styles.innerContainer, fontWeight: 'bold'}}>
         Search Change
           {search}
         </div>
-        <div>
+
+        <div style = {styles.innerContainer}>
           <button style = {styles.searchSaveBtn} 
           onClick = {() => {
             console.log('btn', searchSelectBtn)
