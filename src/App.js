@@ -9,7 +9,7 @@ import devPlaces2 from './assets/tempMapPlaces2.json';
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
-const GOOGLE_PLACES_API_BASE_URL = 'https://maps.googleapis.com/maps/api/place'
+const YELP_API_BASE_URL = 'https://api.yelp.com/v3/businesses/search'
 
 export default function App() {
   const [userLocation, setUserLocation] = React.useState(null)
@@ -22,15 +22,15 @@ export default function App() {
   const [amount , setAmount] = React.useState(20)
   const tmpAmount = React.useRef(20)
 
-  function searchChange (searchSelect, places) {
-    console.log(places, 'places')
 
+  function searchChange (searchSelect, places) {
     let filter = []
     for (let i = 0; i < searchSelect.length; i++) {
       if (searchSelect[i]) {
         filter = filter.concat(places[i])
       }
     }
+    
     setCurPlaces(filter)
   }
 
@@ -45,10 +45,10 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    console.log('useEffect')
+
    if (!navigator.geolocation) {alert('Geolocation is not supported by your browser'); return}
 
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
       setUserLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -68,18 +68,14 @@ export default function App() {
           lng: position.coords.longitude
         }))
       }
-      //console.log(devPlaces)
-      let p = []
+      
+      let p = [[], [], [], []];
       prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
-      prevDistance = 0
+      
       if (prevDistance < 5) {
+        console.log('using local storage')
         var prevPlaces = localStorage.getItem('places')
-        //p = JSON.parse(prevPlaces)
-        p = [devPlaces.businesses]
-        p.push(devPlaces2.businesses)
-        p.push([])
-        p.push([])
-        console.log(p)
+        p = JSON.parse(prevPlaces)
         //remove below and uncomment above in production
         //console.log('places set')
         setPlaces(p)
@@ -88,48 +84,55 @@ export default function App() {
 
       else {
         console.log('loaded from api')
-        for (var index = 0; index < searchArr.length; index++) {
-          console.log('for')
-
-          //integrate javascript API
-           axios.request({
-           method: 'get',
-           url: `${GOOGLE_PLACES_API_BASE_URL}/textsearch/json?key=AIzaSyCrkw8_m93lrUuwfPOgqOTSUMFvX7znkJ8&query=${searchArr[index]}&location=${position.coords.latitude},${position.coords.longitude}&radius=25&types=establishment`
+        for (let index = 0; index < searchArr.length; index++) {
+           await axios.get(`https://corsanywhere.herokuapp.com/${YELP_API_BASE_URL}`,
+           {
+           headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`
+          },
+          params: {
+            locale: 'en_US',
+            term: searchArr[index],
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            limit: 30
+          }
          }).then((response) => {
-           console.log('pinged', response.data.results)
-           response.data.results.sort(
+           
+           response.data.businesses.sort(
              //sort by distance
              (a, b) => {
-               return -findDistance(a.geometry.location.lat, a.geometry.location.lng, position.coords.latitude, position.coords.longitude) + findDistance(b.geometry.location.lat, b.geometry.location.lng, position.coords.latitude, position.coords.longitude)
+               return -findDistance(a.coordinates.latitude, a.coordinates.longitude, position.coords.latitude, position.coords.longitude) + findDistance(b.coordinates.latitude, b.coordinates.longitude, position.coords.latitude, position.coords.longitude)
              }
            )
-           p.push(response.data.results)
-     }).catch((e) => console.log(e))
+          
+           p[index] = response.data.businesses
+           setPlaces(p)
+     }).catch((e) => {console.log(e)})
       }
 
-
-    localStorage.setItem('places', JSON.stringify(p))
-    localStorage.setItem('userLocation', JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
-    setPlaces(p)
-  }
-  
-  
   let food_types = {}
   //EXTREMELY inefficient, make O(n) later using sets
   for (let i = 0; i < p.length; i++) {
     for (let j = 0; j < p[i].length; j++) {
-      if (food_types[p[i][j].place_id] !== undefined) {
-        let temp = food_types[p[i][j].place_id]
+      if (food_types[p[i][j].id] !== undefined) {
+        let temp = food_types[p[i][j].id]
         temp.push(searchArr[i])
-        food_types[p[i][j].place_id] = temp
+        food_types[p[i][j].id] = temp
         p[i][j].type = temp
       }
       else {
-        food_types[p[i][j].place_id] = [searchArr[i]]
+        food_types[p[i][j].id] = [searchArr[i]]
         p[i][j].type = [searchArr[i]]
       }
     }
   }
+
+
+    localStorage.setItem('places', JSON.stringify(p))
+    localStorage.setItem('userLocation', JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
+  }
+  
 
 
   let settings = localStorage.getItem('scroll')
@@ -166,12 +169,10 @@ export default function App() {
           tmpAmount.current = 20
           localStorage.setItem('amount', '20')
         }
-      
-  }); setLoading(false)}
-
-  
+  }); 
+  setLoading(false)
+}
   , [])
-
   return (
     <>
       <Router>

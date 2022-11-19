@@ -189,7 +189,6 @@ export default function DessertCard(props) {
     }
         setLoading(false)}, [])
     
-    console.log(props.types)
     types_list.current = props.types.map((type) => {
         return (
             <div style = {styles().single_review}>
@@ -202,7 +201,7 @@ export default function DessertCard(props) {
             </div>
         )
     })
-    console.log(props.place_img)
+    
     return (
             
         <div style = {styles(intensity()).container}>

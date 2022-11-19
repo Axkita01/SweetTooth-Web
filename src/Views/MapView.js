@@ -84,7 +84,7 @@ export default function Mapped (props) {
         return state.places
     }, [state.places])
 
-    console.log(state.places)
+    
     //get markers from props as list then map to markers
     const markers = useMemo(
         () => {
@@ -95,7 +95,7 @@ export default function Mapped (props) {
         if (!marker || marker === undefined) {
          return null
         }
-        console.log(marker)
+        
         return (
          <Marker
          index = {index}
