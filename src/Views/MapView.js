@@ -64,7 +64,7 @@ export default function Mapped (props) {
             case 'places-added':
                 action.payload.sort(
                     function(a, b) {
-                        return -findDistance(props.latitude, props.longitude, a.geometry.location.lat, a.geometry.location.lng) + findDistance(props.latitude, props.longitude, b.geometry.location.lat, b.geometry.location.lng)
+                        return -findDistance(props.latitude, props.longitude, a.coordinates.latitude, a.coordinates.longitude) + findDistance(props.latitude, props.longitude, b.coordinates.latitude, b.coordinates.longitude)
                     }
                 )
                 return {places: action.payload}
@@ -120,12 +120,12 @@ export default function Mapped (props) {
         let total = []
         for (let i = props.places.length - 1; i >= 0; i--) {
             place = props.places[i]
-            if (place === undefined || seen.has(place.place_id)) {
+            if (place === undefined || seen.has(place.id)) {
                 continue
             }
             else if (count === props.amount) {break}
             else {
-                seen.add(place.place_id)
+                seen.add(place.id)
                 count++
                 total.push(place)
             }

@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route, Link, Routes} from 'react-router
 import Mapped from './Views/MapView';
 import devPlaces from './assets/tempMapPlaces.json';
 import Search from './Pages/Search';
+import devPlaces2 from './assets/tempMapPlaces2.json';
 
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
@@ -33,7 +34,7 @@ export default function App() {
     setCurPlaces(filter)
   }
 
-  function findDistance(lat1, lon1, lat2, lon2) {
+  function findDistance (lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;    // Math.PI / 180
     var c = Math.cos;
     var a = 0.5 - c((lat2 - lat1) * p)/2 + 
@@ -73,9 +74,9 @@ export default function App() {
       prevDistance = 0
       if (prevDistance < 5) {
         var prevPlaces = localStorage.getItem('places')
-        p = JSON.parse(prevPlaces)
+        //p = JSON.parse(prevPlaces)
         p = [devPlaces.businesses]
-        p.push([])
+        p.push(devPlaces2.businesses)
         p.push([])
         p.push([])
         console.log(p)
@@ -87,7 +88,7 @@ export default function App() {
 
       else {
         console.log('loaded from api')
-        for (var index = 0; index < 1/*searchArr.length*/; index++) {
+        for (var index = 0; index < searchArr.length; index++) {
           console.log('for')
 
           //integrate javascript API
