@@ -167,7 +167,6 @@ export default function DessertCard(props) {
         }
     }
 
-    const [picState, picDispatch] = useReducer(reducer, {picIdx: 0})
     //FIXME: implement placeholder for loading
     const [loading, setLoading] = useState(true)
     const types_list = useRef()
@@ -175,33 +174,17 @@ export default function DessertCard(props) {
     //remove once loading
     const noWarning = loading
     
-
-    useEffect(() => {
-        if (props.types.length > 1) {
-        let scroll = setInterval(() => {
-            picDispatch({type: 'toggle'});
+    types_list.current = 
+    <div style = {{display: 'flex', flexDirection: 'row'}}>
+    {props.types.map(
+        (type) => {
             return (
-                () => {
-                    clearInterval(scroll)
-                }
+                <img style = {{height: '3vw'}} src={images[type]} alt={type}/>
             )
-        }, 3000)
-    }
-        setLoading(false)}, [])
-    
-    types_list.current = props.types.map((type) => {
-        return (
-            <div style = {styles().single_review}>
-                        <img
-                        src = {images[type]}
-                        style = {{width: '100%',  marginBottom: '10%', backgroundColor: 'white', height: '100%', maxHeight: 'inherit', maxWidth: 'inherit', objectFit: 'contain'}}
-                        
-                        backgroundColor = 'transparent'
-                        />
-            </div>
-        )
-    })
-    
+        }
+    )}
+    </div>
+
     return (
             
         <div style = {styles(intensity()).container}>
@@ -211,18 +194,18 @@ export default function DessertCard(props) {
                 />
             </div>
 
-            <div style = {{...styles(0).innerContainer, overflowY: 'visible', fontFamily: 'Kannit'}}>
+            <div style = {{...styles(0).innerContainer, overflowY: 'visible', fontFamily: 'Kannit', flexDirection: 'column'}}>
+
                 {`${props.name}`}
+                {types_list.current}
             </div>
            
             <div style = {styles().innerContainer}>
                 {`Rating: ${props.rating}`}
             </div>
 
-
              
             <div style = {styles().innerContainer}>
-                
                 {`Reviews: ${props.num_ratings}\n`}
             </div>
             
@@ -234,9 +217,8 @@ export default function DessertCard(props) {
             width: '75%',
             height: '10vw',
         }} >
-                {types_list.current[picState.picIdx]}
                 <div style = {styles().innerContainer}>
-                <img src = {props.place_img} style = {{width: '7vw', height: '7vw', borderRadius: '1vw'}}/>
+                <img src = {props.place_img} style = {{width: '10vw', height: '10vw', borderRadius: '1vw',}}/>
             </div>
             </div>
 
@@ -260,17 +242,6 @@ export default function DessertCard(props) {
                 </button>
 
             </div>
-            {/*
-            {!props.scrollable && 
-            <div style = {{...styles().innerContainer, position: 'absolute', bottom: 10}}>
-                { props.idx < props.length - 1 &&
-                <button onClick = {props.scrollDown} style = {styles().dirButtons}>{'\u21C3'}</button>
-                    }
-
-                { props.idx !== 0 && 
-                <button onClick = {props.scrollUp} style = {styles().dirButtons}>{'\u21BE'}</button>}
-            </div>}   
-                */} 
         </div>
                 
         )

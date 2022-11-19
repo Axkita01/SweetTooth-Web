@@ -104,8 +104,7 @@ export default function Mapped (props) {
          onClick = {() => {
              setPlaceLocation([lat, lon])
              setSwiperIndex(index)
-             toggleCards(true) 
-             setZoom(18)
+             toggleCards(true)
          }}
          anchor = {[lat, lon]}
          title = {marker.name}
@@ -170,7 +169,7 @@ export default function Mapped (props) {
         
             {/*Popup Cards*/}
 
-            {cards && MemoizedSwiper}
+            {cards && (state.places.length > 0 ? MemoizedSwiper: <div style = {{position: 'absolute', top: '10vh', zIndex: 4}}>No Places Found</div>)}
             
             {/*Map*/}
             <Map
@@ -180,7 +179,7 @@ export default function Mapped (props) {
             }}
             style = {styles.map}
             center = {placeLocation}
-            //minZoom = {10}
+            minZoom = {10}
             showsUserLocation = {true}
             zoom = {zoom}
             >

@@ -2,14 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Switch, Route, Link, Routes} from 'react-router-dom';
 import Mapped from './Views/MapView';
-import devPlaces from './assets/tempMapPlaces.json';
 import Search from './Pages/Search';
-import devPlaces2 from './assets/tempMapPlaces2.json';
 
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
 const YELP_API_BASE_URL = 'https://api.yelp.com/v3/businesses/search'
+
+//Function to get time since last load in hours. If no previous time, return 24 hours
+function getTimeSinceLastLoad() {
+    let lastLoad = localStorage.getItem('prevTime');
+    let timeSinceLastLoad;
+    if (lastLoad) {
+        timeSinceLastLoad = (Date.now() - lastLoad) / 3600000;
+    }
+
+    else {
+        timeSinceLastLoad = 24;
+    }
+
+    return timeSinceLastLoad;
+}
+
 
 export default function App() {
   const [userLocation, setUserLocation] = React.useState(null)
@@ -34,6 +48,8 @@ export default function App() {
     setCurPlaces(filter)
   }
 
+  //Find distance between two points given two sets of latitude and
+  //longitude coordinates
   function findDistance (lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;    // Math.PI / 180
     var c = Math.cos;
@@ -70,19 +86,19 @@ export default function App() {
       }
       
       let p = [[], [], [], []];
+      let timeSinceLastLoad = getTimeSinceLastLoad();
       prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
-      
-      if (prevDistance < 5) {
+      //Load cached places if loaded within 24 hours and within 5 km of last load
+      if (prevDistance < 5 && timeSinceLastLoad < 24) {
         console.log('using local storage')
         var prevPlaces = localStorage.getItem('places')
         p = JSON.parse(prevPlaces)
-        //remove below and uncomment above in production
-        //console.log('places set')
         setPlaces(p)
-        //p = devPlaces.places
       }
 
       else {
+        //store current time/date if not loaded within 24 hours
+        localStorage.setItem('prevTime', Date.now())
         console.log('loaded from api')
         for (let index = 0; index < searchArr.length; index++) {
            await axios.get(`https://corsanywhere.herokuapp.com/${YELP_API_BASE_URL}`,
@@ -95,17 +111,10 @@ export default function App() {
             term: searchArr[index],
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            limit: 30
+            limit: 30,
+            sort_by: 'distance'
           }
-         }).then((response) => {
-           
-           response.data.businesses.sort(
-             //sort by distance
-             (a, b) => {
-               return -findDistance(a.coordinates.latitude, a.coordinates.longitude, position.coords.latitude, position.coords.longitude) + findDistance(b.coordinates.latitude, b.coordinates.longitude, position.coords.latitude, position.coords.longitude)
-             }
-           )
-          
+         }).then((response) => {  
            p[index] = response.data.businesses
            setPlaces(p)
      }).catch((e) => {console.log(e)})
@@ -113,6 +122,8 @@ export default function App() {
 
   let food_types = {}
   //EXTREMELY inefficient, make O(n) later using sets
+  //Puts types of places onto each places object as a dictionary
+  //Based on which search they appeared in
   for (let i = 0; i < p.length; i++) {
     for (let j = 0; j < p[i].length; j++) {
       if (food_types[p[i][j].id] !== undefined) {
