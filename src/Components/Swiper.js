@@ -31,6 +31,8 @@ export default function SweetSwiper(props) {
             <SwiperSlide style = {{background: 'transparent', overflow: 'visible'}} key = {index}>
             <DessertCard
                     images = {images}
+                    url = {item.url}
+                    is_closed = {item.is_closed}
                     place_img = {item.image_url}
                     open = {item.is_closed}
                     location = {item.coordinates}

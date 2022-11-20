@@ -12,7 +12,7 @@ const styles = (index = 0) =>  (
         flexDirection: 'row',
         width: '100%',
         height: '5vw',
-        backgroundColor: 'pink',
+        backgroundColor: 'rgb(255,230,230)',
         position: 'absolute',
         top:0,
         zIndex: 2,
@@ -50,7 +50,7 @@ const styles = (index = 0) =>  (
         borderStyle: 'solid',
         borderColor: 'white',
         borderWidth: '1px',
-        backgroundColor: 'rgb(255,207,241)',
+        backgroundColor: 'rgb(255,200,200)',
 
         },
 
@@ -87,22 +87,12 @@ export default function TopBar (props) {
             <button onClick={props.cardToggle} style = {styles(0).navButton}>   
                 Toggle List
             </button>
+
             <button style = {styles(1).navButton} onClick={() => {
                 window.location.href = '/search'
             }}>
                 Change Search
             </button>
-
-            {/*
-            <Pressable style = {styles(2).navButton} onPress={props.refreshfunc}>
-            {fontsLoaded &&
-                <Text 
-                adjustsFontSizeToFit = {true}
-                numberOfLines = {1} 
-                style = {{...styles().buttonText}}>Refresh</Text>
-            }
-            </Pressable>
-            */}
 
             <button style = {styles(2).navButton} onClick = {props.settingsToggle}>
                Settings

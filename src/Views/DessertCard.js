@@ -7,6 +7,7 @@ import Coffee from '../assets/Coffee.png';
 import Boba from '../assets/Boba.png';
 import Bakery from '../assets/Bakery.png';
 import Kannit from '../fonts/Kanit-Regular.ttf';
+import Yelp from '../assets/YelpLogo.png'
 
 
 const images = {
@@ -28,7 +29,7 @@ return (
         width: '95%',
         height: '100%',
         paddingBottom: '6%',
-        backgroundColor: 'rgb(255, 220, 220)',
+        backgroundColor: 'rgb(255,230,230)',
         zIndex: 2,
         borderRadius: '2vw',
         shadowColor: `rgb(${1.3 * intensity <= 255 ? 1.3 * intensity: 255}, ${.6 * intensity <= 105 ? .6 * intensity: 105}, ${.7 * intensity <= 180 ? .7 * intensity: 180})`,
@@ -42,18 +43,24 @@ return (
     },
 
     innerContainer: {
+        fontFamily: 'Kannit',
         display: 'flex',
         fontSize: '1.5vw',
         flexDirection: 'row',
         justifyContent: 'center',
-        margin: '1vw',
+        margin: '.7vw',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        overflow: 'hidden',
+        textShadow: `2px 0 #DDDDDD, -2px 0 #DDDDDD, 0 2px #DDDDDD, 0 -2px #DDDDDD,
+             1px 1px #DDDDDD, -1px -1px #DDDDDD, 1px -1px #DDDDDD, -1px 1px #DDDDDD`,
+        color: 'white',
+        fontWeight: '800',
     },
 
     header: {
-        fontFamily: Kannit,
+        fontFamily: 'Kannit',
         display: 'flex',
         fontWeight: 'bold',
         fontSize: '30%',
@@ -128,14 +135,14 @@ return (
     placebtn: {
         display: 'flex',
         height: '2vw',
-        margin: '1vw',
         fontSize: '.8vw',
         padding: '1%',
+        color: 'white',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: '1%',
+        borderRadius: 10,
         width: 'auto',
-        marginRight: 3,
+        marginRight: '1vw',
         fontFamily: 'Kannit',
         backgroundColor: 'pink',
         borderWidth: 1,
@@ -179,7 +186,7 @@ export default function DessertCard(props) {
     {props.types.map(
         (type) => {
             return (
-                <img style = {{height: '3vw'}} src={images[type]} alt={type}/>
+                <img style = {{height: '3vw', borderRadius: '1.5vw', borderStyle: 'solid', marginLeft: '.1vw', marginRight: '.5vw'}} src={images[type]} alt={type}/>
             )
         }
     )}
@@ -195,9 +202,12 @@ export default function DessertCard(props) {
             </div>
 
             <div style = {{...styles(0).innerContainer, overflowY: 'visible', fontFamily: 'Kannit', flexDirection: 'column'}}>
-
-                {`${props.name}`}
-                {types_list.current}
+                <div>
+                    {`${props.name}`}
+                </div>
+                <div style = {{marginTop: '.6vw'}}>
+                    {types_list.current}
+                </div>
             </div>
            
             <div style = {styles().innerContainer}>
@@ -217,8 +227,19 @@ export default function DessertCard(props) {
             width: '75%',
             height: '10vw',
         }} >
-                <div style = {styles().innerContainer}>
-                <img src = {props.place_img} style = {{width: '10vw', height: '10vw', borderRadius: '1vw',}}/>
+            <div style = {styles().innerContainer}>
+            <div 
+            style = {{
+                width: '60%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                flexDirection: 'row', 
+                justifyContent: 'center', 
+                height: '10vw', 
+                backgroundColor : '#FFDDEE', 
+                borderRadius: '2vw'}}>
+                <img src = {props.place_img} style = {{height: '90%', borderRadius: '1vw',}}/>
+            </div>
             </div>
             </div>
 
@@ -236,6 +257,19 @@ export default function DessertCard(props) {
                 >
                     <img 
                     src = {googleLogo}
+                    
+                    style = {{height: '100%', width: '100%'}}/>
+                
+                </button>
+
+                <button 
+                style = {{...styles().placebtn, padding: 0, alignItems: 'center', backgroundColor: 'transparent', position: 'relative', bottom: '.03vh', borderWidth: 0}}
+                onClick = {() => {
+                    window.open(props.url)
+                }}
+                >
+                    <img 
+                    src = {Yelp}
                     
                     style = {{height: '100%', width: '100%'}}/>
                 

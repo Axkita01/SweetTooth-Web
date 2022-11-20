@@ -65,6 +65,7 @@ export default function App() {
    if (!navigator.geolocation) {alert('Geolocation is not supported by your browser'); return}
 
     navigator.geolocation.getCurrentPosition(async (position) => {
+      console.log(position)
       setUserLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude

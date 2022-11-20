@@ -7,6 +7,7 @@ import Bakery from '../assets/Bakery.png';
 import Coffee from '../assets/Coffee.png';
 import IceCream from '../assets/IceCream.png';
 import icon from '../assets/final.png';
+import mark from '../assets/final.png';
 
 
 
@@ -98,18 +99,25 @@ export default function Mapped (props) {
         
         return (
          <Marker
+         color = 'pink'
+         onMouseOver={() => {
+            setSwiperIndex(index)
+            toggleCards(true)
+        }}
          index = {index}
          loadingEnabled = {true}
-         image = {icon}
          onClick = {() => {
-             setPlaceLocation([lat, lon])
-             setSwiperIndex(index)
-             toggleCards(true)
-         }}
+            setZoom(18)
+            setPlaceLocation([lat , lon -  .0005])
+            setSwiperIndex(index)
+            toggleCards(true)
+        }}
          anchor = {[lat, lon]}
          title = {marker.name}
          key = {index}
-         />)} ))}, [state.places])
+         >
+            
+        </Marker>)} ))}, [state.places])
 
     useEffect(() => {
         dispatch({type: 'places-cleared'})
@@ -143,7 +151,6 @@ export default function Mapped (props) {
                 card_lst = {card_lst} 
                 navigate = {(location) => {
                 setPlaceLocation(location);
-                setZoom(18)
             }}
                 navigation = {props.navigation}/>
         )
