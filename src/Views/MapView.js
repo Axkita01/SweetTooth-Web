@@ -142,7 +142,7 @@ export default function Mapped (props) {
     return (
     
         <div className = 'mapContainer' style = {{height: height}}> 
-        >
+        
             {/*NavBar*/}
             {MemoizedTopBar}
         
