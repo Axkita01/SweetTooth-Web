@@ -10,7 +10,8 @@ import icon from '../assets/final.png';
 import mark from '../assets/final.png';
 import '../Styles/MapView.css'
 
-
+const height = document.scrollingElement.scrollHeight
+console.log(height)
 const images = {
     'Boba': Boba,
     'Bakery': Bakery,
@@ -140,8 +141,7 @@ export default function Mapped (props) {
     }, [])
     return (
     
-        <div className = 'mapContainer'
-
+        <div className = 'mapContainer' style = {{height: height}}> 
         >
             {/*NavBar*/}
             {MemoizedTopBar}
@@ -162,7 +162,6 @@ export default function Mapped (props) {
             showsUserLocation = {true}
             zoom = {zoom}
             >
-                <ZoomControl style = {{position: 'absolute', right: '3%', zIndex: 3, top: '12%'}}/>
                 {markers}
             </Map>
         </div>

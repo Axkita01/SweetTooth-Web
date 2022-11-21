@@ -97,8 +97,12 @@
     align-items: center;
     flex-direction: row;
     width: 75%;
-    height: 10vw
+    height: 10%;
+    top: 2vh
 }
+
+
+
 /*
 Shadow styles to add to card and stuff:
 
