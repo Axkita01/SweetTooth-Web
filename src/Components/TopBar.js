@@ -5,6 +5,7 @@ import logo from '../assets/SweetToothLogo-transparent.png.png';
 
 import '../Styles/TopBar.css';
 
+
 export default function TopBar (props) {
     //props are refreshfunc, searchfunc, cardToggle, selected (array of keywords),
     // handleChangeSelected (function to change selected), scrollEnabled (function),

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import {Map, Marker} from 'pigeon-maps'
+import {Map, Marker, ZoomControl} from 'pigeon-maps'
 import TopBar from '../Components/TopBar'
 import SweetSwiper from '../Components/Swiper'
 import Boba from '../assets/Boba.png';
@@ -10,22 +10,6 @@ import icon from '../assets/final.png';
 import mark from '../assets/final.png';
 import '../Styles/MapView.css'
 
-
-
-const styles = {
-
-    dessert: {
-        height: '50%'
-    },
-
-    list: {
-        zIndex: 1,
-        width: '90%',
-        height: '90%',
-        paddingBottom: '3vh',
-        overflow: 'visible',
-    }
-}
 
 const images = {
     'Boba': Boba,
@@ -178,6 +162,7 @@ export default function Mapped (props) {
             showsUserLocation = {true}
             zoom = {zoom}
             >
+                <ZoomControl style = {{position: 'absolute', right: '3%', zIndex: 3, top: '12%'}}/>
                 {markers}
             </Map>
         </div>
