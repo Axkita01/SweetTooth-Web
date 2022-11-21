@@ -13,6 +13,12 @@
     border-bottom-color: white
 }
 
+.navButton:hover {
+    transition: all .2s ease-in-out;
+    background-color: rgb(255,170,170);
+    cursor: pointer;
+}
+
 .navButton {
     display: flex;
     height: 4vw;

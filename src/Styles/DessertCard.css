@@ -18,6 +18,13 @@
     position: relative,
 }
 
+.dessertCardContainer:hover {
+    cursor: grab;
+}
+
+.dessertCardContainer:active {
+    cursor: grabbing;
+}
 .dessertCardInnerContainer {
     font-family: 'Kanit', serif;
     display: flex;
@@ -62,7 +69,6 @@
     border-radius: 10px;
     width: auto;
     margin-right: 1vw;
-    font-family: 'Kanit';
     background-color: pink;
     border-color: white
 

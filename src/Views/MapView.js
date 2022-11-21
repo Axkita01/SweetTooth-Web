@@ -109,8 +109,8 @@ export default function Mapped (props) {
             }
         dispatch({type: 'places-added', payload: total})
         }
-
-    }, [props.places, props.amount])
+        setZoom(14)
+    }, [props.places])
     //end of temporary block
 
     const MemoizedSwiper = React.useMemo(() => {
