@@ -8,24 +8,11 @@ import Coffee from '../assets/Coffee.png';
 import IceCream from '../assets/IceCream.png';
 import icon from '../assets/final.png';
 import mark from '../assets/final.png';
+import '../Styles/MapView.css'
 
 
 
 const styles = {
-    map: {
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-        overflow: 'hidden',
-        bottom: 0,
-        zIndex: -1,
-        backgroundColor: 'transparent',
-    },
-    container: {
-        width: '100vw',
-        height: '100vh',
-        overflow: 'hidden',
-    },
 
     dessert: {
         height: '50%'
@@ -168,7 +155,7 @@ export default function Mapped (props) {
     }, [])
     return (
     
-        <div style = {styles.container} 
+        <div className = 'mapContainer'
 
         >
             {/*NavBar*/}
@@ -180,11 +167,11 @@ export default function Mapped (props) {
             
             {/*Map*/}
             <Map
+            className = 'map'
             onBoundsChanged={({center,zoom}) => {
                setPlaceLocation(center)
                setZoom(zoom)
             }}
-            style = {styles.map}
             center = {placeLocation}
             minZoom = {10}
             showsUserLocation = {true}

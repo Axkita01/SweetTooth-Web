@@ -6,8 +6,8 @@ import IceCream from '../assets/IceCream.png';
 import Coffee from '../assets/Coffee.png';
 import Boba from '../assets/Boba.png';
 import Bakery from '../assets/Bakery.png';
-import Kannit from '../fonts/Kanit-Regular.ttf';
 import Yelp from '../assets/YelpLogo.png'
+import '../Styles/DessertCard.css';
 
 
 const images = {
@@ -17,139 +17,6 @@ const images = {
     'Bakery': Bakery,
 }
 
-const styles = (intensity = 0, glow = 0) => {
-return (
-    {
-    container: {
-        marginBottom: '1vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'top',
-        alignItems: 'center',
-        width: '95%',
-        height: '100%',
-        paddingBottom: '6%',
-        backgroundColor: 'rgb(255,230,230)',
-        zIndex: 2,
-        borderRadius: '2vw',
-        shadowColor: `rgb(${1.3 * intensity <= 255 ? 1.3 * intensity: 255}, ${.6 * intensity <= 105 ? .6 * intensity: 105}, ${.7 * intensity <= 180 ? .7 * intensity: 180})`,
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: intensity >= 130 ? glow: 0,
-        shadowRadius: 10,
-        borderColor: 'white',//`rgb(${1.3 * intensity <= 255 ? 1.3 * intensity: 255}, ${.6 * intensity <= 105 ? .6 * intensity: 105}, ${.7 * intensity <= 180 ? .7 * intensity: 180})`,
-        borderStyle: 'solid',
-        borderWidth:  '.01vw',
-        position: 'relative',
-    },
-
-    innerContainer: {
-        fontFamily: 'Kannit',
-        display: 'flex',
-        fontSize: '1.5vw',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        margin: '.7vw',
-        alignItems: 'center',
-        width: '100%',
-        backgroundColor: 'transparent',
-        overflow: 'hidden',
-        textShadow: `2px 0 #DDDDDD, -2px 0 #DDDDDD, 0 2px #DDDDDD, 0 -2px #DDDDDD,
-             1px 1px #DDDDDD, -1px -1px #DDDDDD, 1px -1px #DDDDDD, -1px 1px #DDDDDD`,
-        color: 'white',
-        fontWeight: '800',
-    },
-
-    header: {
-        fontFamily: 'Kannit',
-        display: 'flex',
-        fontWeight: 'bold',
-        fontSize: '30%',
-        padding: 0,
-        paddingTop: '1%',
-        textAlign: 'center',
-        text: `rgb(${1.3 * intensity <= 255 ? 1.3 * intensity: 255}, ${.6 * intensity <= 105 ? .6 * intensity: 105}, ${.7 * intensity <= 180 ? .7 * intensity: 180})`,
-        textShadowColor: `rgb(${1.3 * intensity <= 255 ? 1.3 * intensity: 255}, ${.6 * intensity <= 105 ? .6 * intensity: 105}, ${.7 * intensity <= 180 ? .7 * intensity: 180})`,
-        textShadowRadius: 10,
-        color: 'white'
-    },
-    
-    topBar: {
-        display: 'flex',
-        height: '5vw',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        marginTop: '1.5vw',
-    },
-
-    image: {
-        height: '100%',
-        width: 'auto',
-
-    },
-
-    text: {
-        fontFamily: 'Kannit',
-        fontSize: '20%',
-        fontWeight: "700",
-        color: 'white'
-    },
-
-    
-
-    reviews: {
-        height: '20vw',
-        width: '60vw',
-        zIndex: 4,
-        backgroundColor: 'transparent',
-        borderWidth: 1,
-        borderRadius: '30vw',
-        borderColor: 'pink',
-        backgroundColor: '#fff0f5',
-        
-    },
-
-    single_review:  {
-        borderRadius: '5vw',
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '12vw',
-        height: '90%',
-        objectFit: 'contain',
-        backgroundColor: 'transparent',
-        paddingTop: '5%',
-    },
-
-    dirButtons: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        margin: '5%',
-        width: '10%',
-        height: '5%',
-    },
-    
-    placebtn: {
-        display: 'flex',
-        height: '2vw',
-        fontSize: '.8vw',
-        padding: '1%',
-        color: 'white',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-        width: 'auto',
-        marginRight: '1vw',
-        fontFamily: 'Kannit',
-        backgroundColor: 'pink',
-        borderWidth: 1,
-        borderColor: 'white',
-    
-    }})
-}
 
 export default function DessertCard(props) {
     //Props are name, image, rating, and description, num_ratings, navigatefunc (maybe more later) type is list of strings denoting types of desserts
@@ -194,14 +61,18 @@ export default function DessertCard(props) {
 
     return (
             
-        <div style = {styles(intensity()).container}>
-            <div style = {{...styles().topBar, marginBottom: '2%'}}>
+        <div className = 'dessertCardContainer'>
+            <div className = 'dessertCardHeader'>
                 <img
-                style = {styles().image} src={logo}
+                src={logo}
+                className ='image'
                 />
             </div>
 
-            <div style = {{...styles(0).innerContainer, overflowY: 'visible', fontFamily: 'Kannit', flexDirection: 'column'}}>
+            <div 
+            style = {{overflowY: 'visible', flexDirection: 'column'}}
+            className = 'dessertCardInnerContainer'
+            >
                 <div>
                     {`${props.name}`}
                 </div>
@@ -210,47 +81,40 @@ export default function DessertCard(props) {
                 </div>
             </div>
            
-            <div style = {styles().innerContainer}>
+            <div 
+            className = 'dessertCardInnerContainer'
+            >
                 {`Rating: ${props.rating}`}
             </div>
-
-             
-            <div style = {styles().innerContainer}>
+               
+            <div
+            className = 'dessertCardInnerContainer'
+            >
                 {`Reviews: ${props.num_ratings}\n`}
             </div>
             
+            <div className = 'dessertCardInnerContainer placeImgContain'>
+                <div 
+                className = 'dessertCardInnerContainer'
+                >
+                    <div className = 'placeImg'>
+                        <img src = {props.place_img} style = {{height: '90%', borderRadius: '1vw',}}/>
+                    </div>
+                </div>
+            </div>
 
 
-            <div style = {{...styles().innerContainer, 
-            alignItems: 'center',
-            flexDirection: 'row',
-            width: '75%',
-            height: '10vw',
-        }} >
-            <div style = {styles().innerContainer}>
             <div 
-            style = {{
-                width: '60%', 
-                display: 'flex', 
-                alignItems: 'center', 
-                flexDirection: 'row', 
-                justifyContent: 'center', 
-                height: '10vw', 
-                backgroundColor : '#FFDDEE', 
-                borderRadius: '2vw'}}>
-                <img src = {props.place_img} style = {{height: '90%', borderRadius: '1vw',}}/>
-            </div>
-            </div>
-            </div>
-
-
-            <div style = {styles().innerContainer}>
-                <button style = {styles().placebtn} onClick={props.navigatefunc}>
+            className = 'dessertCardInnerContainer'
+            >
+                <button 
+                className='placebtn'
+                onClick={props.navigatefunc}>
                         Go to place
                 </button>
 
                 <button 
-                style = {{...styles().placebtn, padding: 0, alignItems: 'center', backgroundColor: 'transparent', position: 'relative', bottom: '.03vh', borderWidth: 0}}
+                className='placebtn imgBtn'
                 onClick = {() => {
                     window.open(`https://www.google.com/maps/place/?q=${props.name}, ${props.address}`)
                 }}
@@ -263,18 +127,15 @@ export default function DessertCard(props) {
                 </button>
 
                 <button 
-                style = {{...styles().placebtn, padding: 0, alignItems: 'center', backgroundColor: 'transparent', position: 'relative', bottom: '.03vh', borderWidth: 0}}
+                className='placebtn imgBtn'
                 onClick = {() => {
                     window.open(props.url)
                 }}
                 >
                     <img 
-                    src = {Yelp}
-                    
+                    src = {Yelp}  
                     style = {{height: '100%', width: '100%'}}/>
-                
                 </button>
-
             </div>
         </div>
                 

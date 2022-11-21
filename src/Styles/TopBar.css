@@ -1,0 +1,55 @@
+.navContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 5vw;
+    background-color: rgb(255,230,230);
+    position: absolute;
+    top:0;
+    z-index: 2;
+    align-items: center;
+    border-bottom-style: solid;
+    border-bottom-width: 3;
+    border-bottom-color: white
+}
+
+.navButton {
+    display: flex;
+    height: 4vw;
+    width: 7vw;
+    z-index: 4;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position:absolute;
+    top: 10%;
+    font-size: 1.5vw;
+    border-radius: 10;
+    border-style: solid;
+    border-color:white;
+    border-width: 1px;
+    background-color: rgb(255,200,200);
+
+}
+
+#zero {
+    left: 26vw;
+}
+
+#one {
+    left: 46vw;
+}
+
+#two {
+    left: 66vw;
+}
+
+.logo {
+    height: 6vw;
+    padding: 0;
+    margin:0;
+    width: 9vw;
+    position: relative;
+    top: 5%;
+    z-index: 3
+}

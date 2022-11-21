@@ -8,6 +8,7 @@ import Boba from '../assets/Boba.png';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import { FixedSizeList as List } from 'react-window';
+import '../Styles/SweetSwiper.css'
 
 const images = {
     'Boba': Boba,
@@ -73,17 +74,17 @@ export default function SweetSwiper(props) {
         return <div style = {{position: 'absolute', top: 0}}>No Places</div>
     }
     return (
-        <div  style = {{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'transparent', position: 'absolute', right: '30vw', top: '15%'}}>
+        <div  className = 'swiperContainer' >
             <Swiper
             onInit={(ev) => {
                 list.current = ev;
             }}
             lazy = {true}
+            className = 'SweetSwiper'
             initialSlide = {props.index}
             rewind = {true}
             spaceBetween={50}
             slidesPerView={1}
-            style = {{width: '40%', height: '40%',background: 'transparent', marginLeft: '35%'}}
             scrollbar={{ draggable: true }}
             >
             <List
@@ -92,16 +93,16 @@ export default function SweetSwiper(props) {
                 {cards}
             </List>
             </Swiper>
-        <div style = {{marginLeft: '10%', width: '25%',display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+        <div className = 'swiperButtonContainer'>
         <button 
         onClick = {() => {list.current.slidePrev(1000, false)}}
-        style = {{height: '3vw', width: '2vw', fontSize: '1vw', position: 'relative', zIndex: 1, padding: 0, margin: 0}}
+        className = 'swiperButton'
         >
             {'\u25C0'}
         </button>
         <div style = {{width: '10%'}}/>
         <button 
-        style = {{height: '3vw', width: '2vw', fontSize: '1vw', position: 'relative', zIndex: 1, padding: 0, margin: 0}}
+        className = 'swiperButton'
         onClick = {() => {list.current.slideNext(1000, false)}}
         >
             {'\u25B6'}
