@@ -138,6 +138,7 @@ export default function Mapped (props) {
                 card_lst = {card_lst} 
                 navigate = {(location) => {
                 setPlaceLocation(location);
+                setZoom(18)
             }}
                 navigation = {props.navigation}/>
         )

@@ -24,10 +24,13 @@
     position:absolute;
     top: 10%;
     font-size: 1.5vw;
-    border-radius: 10;
+    border-radius: 10px;
     border-style: solid;
     border-color:white;
     border-width: 1px;
+    font-family: 'Kanit';
+    color: white;
+    line-height: 1;
     background-color: rgb(255,200,200);
 
 }

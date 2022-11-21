@@ -1,6 +1,6 @@
 
 import logo from '../assets/SweetToothLogo-transparent.png.png';
-import React, {useState, useEffect, useRef, useReducer} from 'react';
+import React, {useState, useRef} from 'react';
 import googleLogo from '../assets/GoogleMaps.png';
 import IceCream from '../assets/IceCream.png';
 import Coffee from '../assets/Coffee.png';

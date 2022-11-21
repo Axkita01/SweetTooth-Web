@@ -1,3 +1,5 @@
+
+
 .dessertCardContainer {
     margin-bottom: 1vh;
     display: flex;
@@ -17,7 +19,7 @@
 }
 
 .dessertCardInnerContainer {
-    font-family: 'Kanit';
+    font-family: 'Kanit', serif;
     display: flex;
     font-size: 1.5vw;
     flex-direction: row;
@@ -30,7 +32,7 @@
     text-shadow: 2px 0 #DDDDDD, -2px 0 #DDDDDD, 0 2px #DDDDDD, 0 -2px #DDDDDD,
              1px 1px #DDDDDD, -1px -1px #DDDDDD, 1px -1px #DDDDDD, -1px 1px #DDDDDD;
     color: white;
-    font-weight: 800;
+    font-weight: 100;
 }
 
 .dessertCardHeader {
@@ -49,6 +51,7 @@
 }
 
 .placebtn {
+    font-family: 'Kanit';
     display: flex;
     height: 2vw;
     font-size: .8vw;

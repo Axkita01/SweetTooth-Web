@@ -26,9 +26,15 @@
 }
 
 .swiperButton {
-    height: 3vw;
+    height: 2vw;
     width: 2vw;
     font-size: 1vw; 
+    border-radius: 1vw;
+    align-items: center;
+    justify-content: center;
+    background-color: pink;
+    border-color: white;
+    color: white;
     position: relative;
     z-index: 1;
     padding: 0;

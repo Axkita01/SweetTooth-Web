@@ -49,7 +49,7 @@ export default function SweetSwiper(props) {
                     key = {item.id}
                     //reviews = {item.reviews}
                     navigatefunc = {() => {
-                    props.navigate([item.coordinates.latitude, item.coordinates.longitude])
+                    props.navigate([item.coordinates.latitude, item.coordinates.longitude - .0005])
                 }}
                     />
             </SwiperSlide>
