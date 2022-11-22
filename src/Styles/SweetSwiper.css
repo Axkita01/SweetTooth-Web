@@ -41,3 +41,17 @@
     margin: 0
 }
 
+@media screen and (max-width: 500px) {
+    .swiperContainer {
+        top: 6.5vw;
+        right: 4.8vw
+    }
+
+    .swiperButton {
+        height: 3.5vw;
+        width: 3.5vw;
+        font-size: 1.5vw;
+        border-radius: 1.75vw
+    }
+    
+}    

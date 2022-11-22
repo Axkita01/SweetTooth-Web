@@ -56,7 +56,7 @@ export default function App() {
   }
 
   React.useEffect(() => {
-
+    console.log('effect')
    if (!navigator.geolocation) {alert('Geolocation is not supported by your browser'); return}
 
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -140,16 +140,6 @@ export default function App() {
     localStorage.setItem('userLocation', JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
   }
   
-
-
-  let settings = localStorage.getItem('scroll')
-  if (settings === 'true') {
-  }
-
-  else {
-    localStorage.setItem('scroll', 'false')
-  }
-  
       let search = localStorage.getItem('search')
       localStorage.setItem('places', JSON.stringify(p))
       
@@ -172,7 +162,7 @@ export default function App() {
           
           localStorage.setItem('amount', '20')
         }
-  }); 
+  }, () => {console.log('location failed')}, {timeout: 10000, enableHighAccuracy: true}); 
 }
   , [])
 

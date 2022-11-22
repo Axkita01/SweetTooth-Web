@@ -5,19 +5,20 @@ import SweetSwiper from '../Components/Swiper'
 import '../Styles/MapView.css'
 
 const height = document.scrollingElement.scrollHeight
-//initalize map
+
+function findDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;    // Math.PI / 180
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+            c(lat1 * p) * c(lat2 * p) * 
+            (1 - c((lon2 - lon1) * p))/2;
+  
+    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
+
+
+
 export default function Mapped (props) {
-
-
-    function findDistance(lat1, lon1, lat2, lon2) {
-        var p = 0.017453292519943295;    // Math.PI / 180
-        var c = Math.cos;
-        var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-                c(lat1 * p) * c(lat2 * p) * 
-                (1 - c((lon2 - lon1) * p))/2;
-      
-        return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-        }
 
     function reducer(state, action) {
         switch(action.type) {
@@ -40,10 +41,6 @@ export default function Mapped (props) {
     const [state, dispatch] = React.useReducer(reducer, {places: []})
     const [placeLocation, setPlaceLocation] = React.useState(props.userLocation)
     const [zoom, setZoom] = React.useState(12)
-    const card_lst = useMemo(() => {
-        return state.places
-    }, [state.places])
-
     
     //get markers from props as list then map to markers
     const markers = useMemo(
@@ -105,7 +102,7 @@ export default function Mapped (props) {
             <SweetSwiper 
                 style = {{background: 'transparent'}}
                 index = {swiperIndex}
-                card_lst = {card_lst} 
+                card_lst = {state.places} 
                 navigate = {(location) => {
                 setPlaceLocation(location);
                 setZoom(18)

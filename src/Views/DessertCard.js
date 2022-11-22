@@ -1,6 +1,6 @@
 
 import logo from '../assets/SweetToothLogo-transparent.png.png';
-import React, {useState, useRef} from 'react';
+import React, {useRef} from 'react';
 import googleLogo from '../assets/GoogleMaps.png';
 import IceCream from '../assets/IceCream.png';
 import Coffee from '../assets/Coffee.png';
@@ -28,25 +28,11 @@ export default function DessertCard(props) {
             return 0
         }
     }
-    
-    function reducer (picState, action) {
-        switch (action.type) {
-            case 'toggle':
-                let temp = picState.picIdx + 1
-                let image_length = Object.keys(images).length
-                if (temp === image_length) {
-                    temp = 0
-                }
-                return {picIdx: temp}
-        }
-    }
 
     //FIXME: implement placeholder for loading
-    const [loading, setLoading] = useState(true)
     const types_list = useRef()
     
     //remove once loading
-    const noWarning = loading
     
     types_list.current = 
     <div style = {{display: 'flex', flexDirection: 'row'}}>

@@ -110,6 +110,17 @@
 
 
 
+@media screen and (max-width: 500px) {
+    .dessertCardInnerContainer {
+        text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
+                 .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+    }
+
+    .distanceText {
+        text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
+                 .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+    }
+}
 /*
 Shadow styles to add to card and stuff:
 
