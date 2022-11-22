@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {BrowserRouter as Router, Switch, Route, Link, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Mapped from './Views/MapView';
 import Search from './Pages/Search';
 
@@ -29,12 +29,7 @@ export default function App() {
   const [userLocation, setUserLocation] = React.useState(null)
   const [places, setPlaces] = React.useState([])
   const [curPlaces, setCurPlaces] = React.useState([])
-  const [cardScroll, toggleCardScroll] = React.useState(false)
-  const [loading, setLoading] = React.useState(true)
   const [searchSelect, setSearchSelect] = React.useState([true, true, true, true])
-  const [searchSelectBtn, setSearchSelectBtn] = React.useState([true, true, true, true])
-  const [amount , setAmount] = React.useState(20)
-  const tmpAmount = React.useRef(20)
 
 
   function searchChange (searchSelect, places) {
@@ -148,12 +143,10 @@ export default function App() {
 
 
   let settings = localStorage.getItem('scroll')
-  if (settings == 'true') {
-  toggleCardScroll(true)
+  if (settings === 'true') {
   }
 
   else {
-    toggleCardScroll(false)
     localStorage.setItem('scroll', 'false')
   }
   
@@ -172,19 +165,17 @@ export default function App() {
         let a = localStorage.getItem('amount')
         
         if (a) {
-          setAmount(parseInt(a))
-          tmpAmount.current = parseInt(a)
+          
         }
 
         else {
-          setAmount(20)
-          tmpAmount.current = 20
+          
           localStorage.setItem('amount', '20')
         }
   }); 
-  setLoading(false)
 }
   , [])
+
   return (
     <>
       <Router>

@@ -1,23 +1,10 @@
 import React, { useEffect, useMemo } from 'react'
-import {Map, Marker, ZoomControl} from 'pigeon-maps'
+import {Map, Marker} from 'pigeon-maps'
 import TopBar from '../Components/TopBar'
 import SweetSwiper from '../Components/Swiper'
-import Boba from '../assets/Boba.png';
-import Bakery from '../assets/Bakery.png';
-import Coffee from '../assets/Coffee.png';
-import IceCream from '../assets/IceCream.png';
-import icon from '../assets/final.png';
-import mark from '../assets/final.png';
 import '../Styles/MapView.css'
 
 const height = document.scrollingElement.scrollHeight
-console.log(height)
-const images = {
-    'Boba': Boba,
-    'Bakery': Bakery,
-    'Coffee': Coffee,
-    'Ice Cream': IceCream
-}
 //initalize map
 export default function Mapped (props) {
 
@@ -72,10 +59,10 @@ export default function Mapped (props) {
         return (
          <Marker
          color = 'pink'
-         onMouseOver={() => {
+         /*onMouseOver={() => {
             setSwiperIndex(index)
             toggleCards(true)
-        }}
+        }}*/
          index = {index}
          loadingEnabled = {true}
          onClick = {() => {
@@ -105,7 +92,6 @@ export default function Mapped (props) {
             else if (count === props.amount) {break}
             else {
                 seen.add(place.id)
-                count++
                 total.push(place)
             }
         dispatch({type: 'places-added', payload: total})
@@ -118,7 +104,6 @@ export default function Mapped (props) {
         return (
             <SweetSwiper 
                 style = {{background: 'transparent'}}
-                images = {images}
                 index = {swiperIndex}
                 card_lst = {card_lst} 
                 navigate = {(location) => {
@@ -158,7 +143,6 @@ export default function Mapped (props) {
                setZoom(zoom)
             }}
             center = {placeLocation}
-            minZoom = {10}
             showsUserLocation = {true}
             zoom = {zoom}
             >

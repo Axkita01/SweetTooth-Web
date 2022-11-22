@@ -53,12 +53,16 @@ export default function DessertCard(props) {
     {props.types.map(
         (type) => {
             return (
+            <li key = {type}>
                 <img style = {{height: '3vw', borderRadius: '1.5vw', borderStyle: 'solid', marginLeft: '.1vw', marginRight: '.5vw'}} src={images[type]} alt={type}/>
+            </li>
             )
         }
     )}
     </div>
 
+    const distance_miles = (props.distance * 0.000621371).toFixed(2)
+    
     return (
             
         <div className = 'dessertCardContainer'>
@@ -67,6 +71,10 @@ export default function DessertCard(props) {
                 src={logo}
                 className ='image'
                 />
+            </div>
+
+            <div>
+                <span className = 'distanceText'>{distance_miles} miles away</span>
             </div>
 
             <div 

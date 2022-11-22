@@ -2,21 +2,10 @@
 import React from 'react'
 import { useRef, useMemo, useEffect } from 'react';
 import DessertCard from '../Views/DessertCard';
-import IceCream from '../assets/IceCream.png';
-import Coffee from '../assets/Coffee.png';
-import Bakery from '../assets/Bakery.png';
-import Boba from '../assets/Boba.png';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import { FixedSizeList as List } from 'react-window';
 import '../Styles/SweetSwiper.css'
-
-const images = {
-    'Boba': Boba,
-    'Bakery': Bakery,
-    'Coffee': Coffee,
-    'Ice Cream': IceCream
-}
 
 
 //ADD SCROLL ENABLE BUTTON (MAKE UP AND DOWN BUTTONS DISAPPEAR WHEN SCROLLING)
@@ -32,7 +21,7 @@ export default function SweetSwiper(props) {
         return (
             <SwiperSlide style = {{background: 'transparent', overflow: 'visible'}} key = {index}>
             <DessertCard
-                    images = {images}
+                    distance = {item.distance}
                     url = {item.url}
                     is_closed = {item.is_closed}
                     place_img = {item.image_url}

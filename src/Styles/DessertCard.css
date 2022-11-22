@@ -1,4 +1,11 @@
 
+.distanceText {
+    font-size: 1vw;
+    color: white;
+    font-family: 'Kanit';
+    text-shadow: 1px 0 #DDDDDD, -1px 0 #DDDDDD, 0 1px #DDDDDD, 0 -1px #DDDDDD,
+             1px 1px #DDDDDD, -1px -1px #DDDDDD, 1px -1px #DDDDDD, -1px 1px #DDDDDD;
+}
 
 .dessertCardContainer {
     margin-bottom: 1vh;
