@@ -1,6 +1,7 @@
 import React from 'react';
 import {useEffect} from 'react';
 import '../Styles/Search.css';
+import {images} from '../assets/images.js';
 
 const searchArr = ['Coffee', 'Boba', 'Ice Cream', 'Bakery']
 
@@ -19,10 +20,10 @@ export default function Search(props) {
             localStorage.setItem('search', JSON.stringify([true, true, true, true]))
         }
     }, [])
-
+  
     const search = searchSelectBtn.map((item, index) => {
         return (
-            
+          <div className = 'searchBtnContain'>
               <button 
               className='searchBtn'
               style = {{backgroundColor: item ? 'pink' : 'gray'}}
@@ -31,8 +32,16 @@ export default function Search(props) {
                 temp[index] = !temp[index]
                 setSearchSelectBtn(temp)
               }}>
-                  {searchArr[index]}
+                  <div>
+                    <img 
+                    className='searchBtnImage'
+                    src = {images[searchArr[index]]}/>
+                  </div>
               </button>
+              <span className='searchBtnText'>
+                {searchArr[index]}
+              </span>
+          </div>
             
           )
 
@@ -42,13 +51,17 @@ export default function Search(props) {
       <button className='backBtn' onClick = {() => {window.location.href = '/'}}>
         Back
       </button>
+      
+      <div className = 'searchInnerContainer'>
+        <span className='searchBtnText'>Select Search words</span>
+      </div>
+
 
         <div style = {{ fontWeight: 'bold'}} className = 'searchInnerContainer'>
-        Search Change
           {search}
         </div>
 
-        <div className = 'searchInnerContainer'>
+        <div className = 'searchInnerContainer' style = {{justifyContent: 'left'}}>
           <button 
           className = 'searchSaveButton' 
           onClick = {() => {

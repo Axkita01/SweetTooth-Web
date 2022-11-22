@@ -1,12 +1,14 @@
 .searchContainer {
     flex: 1;
+    position: relative;
     background-color: #fff;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     width: 100vw;
     height: 100vh;
-    background-color: #ffBBDD
+    background-color: #FFDDDD;
+    flex-direction: column;
   }
 
 .searchInnerContainer {
@@ -15,20 +17,15 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 30%
 }
 
 .searchSaveButton {
     display: flex;
-    position: relative;
-    bottom: 30%;
     background-color: white;
     padding: 10;
     border-radius: 10px;
-    border-color: pink;
-    border-width: 1px;
-    height: 30%;
-    width: 30%;
+    width: 30vw;
+    height: 5vw;
     align-items: center;
     justify-content: center
 
@@ -36,15 +33,35 @@
 
 .searchBtn {
     display: flex;
-    height: 50%;
-    width: 30%;
+    height: 5vw;
+    width: 5vw;
     margin: 10px;
     text-align: center;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 2.5vw;
     border-color: white;
     border-width: 1px;
+}
+
+
+.searchBtnImage {
+  height: 4vw;
+}
+
+.searchBtnText {
+    font-size: 1.5vw;
+    color: white;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+}
+
+.searchBtnContain {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  width: 20vw
 }
 
 .backBtn {
@@ -52,3 +69,4 @@
     top: 5%;
     left: 5%;
   }
+

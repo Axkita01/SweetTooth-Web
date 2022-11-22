@@ -121,6 +121,7 @@ export default function Mapped (props) {
             ></TopBar>
         )
     }, [])
+    
     return (
     
         <div className = 'mapContainer' style = {{height: height}}> 
