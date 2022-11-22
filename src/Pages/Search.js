@@ -53,7 +53,7 @@ export default function Search(props) {
       </button>
       
       <div className = 'searchInnerContainer'>
-        <span className='searchBtnText'>Select Search words</span>
+        <span className='searchHeaderText'>Select Search words</span>
       </div>
 
 

@@ -31,6 +31,13 @@
 
   }
 
+.searchHeaderText {
+  font-size: 1.5vw;
+    color: white;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    padding: 2vw;
+}
 .searchBtn {
     display: flex;
     height: 5vw;
@@ -54,6 +61,7 @@
     color: white;
     font-weight: bold;
     font-family: 'Kanit', sans-serif;
+    padding: 2vw;
 }
 
 .searchBtnContain {
@@ -70,3 +78,43 @@
     left: 5%;
   }
 
+@media screen and (max-width: 800px) {
+
+.searchSaveButton {
+    border-radius: 10px;
+    width: 30vw;
+    height: 5vw;
+  }
+
+.searchBtn {
+    height: 8vw;
+    width: 8vw;
+    margin: 10px;
+    border-radius: 4vw;
+}
+
+
+.searchBtnImage {
+  height: 7vw;
+}
+
+.searchHeaderText {
+  font-size: 4vw;
+  padding: 2vw;
+}
+
+.searchBtnText {
+    font-size: 3vw;
+    color: white;
+    padding: 1vw;
+}
+
+.searchBtnContain {
+  width: 23vw
+}
+
+.backBtn {
+    top: 5%;
+    left: 5%;
+  }
+}
