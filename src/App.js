@@ -3,6 +3,8 @@ import axios from 'axios';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Mapped from './Views/MapView';
 import Search from './Pages/Search';
+import LocationInput from './Components/LocationInput';
+
 
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
@@ -30,6 +32,8 @@ export default function App() {
   const [places, setPlaces] = React.useState([])
   const [curPlaces, setCurPlaces] = React.useState([])
   const [searchSelect, setSearchSelect] = React.useState([true, true, true, true])
+  const [locationInaccurate, setLocationInaccurate] = React.useState(false)
+  const locationRef = React.useRef(null)
 
 
   function searchChange (searchSelect, places) {
@@ -55,35 +59,51 @@ export default function App() {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
 
-  React.useEffect(() => {
-    console.log('effect')
-   if (!navigator.geolocation) {alert('Geolocation is not supported by your browser'); return}
-
-    navigator.geolocation.getCurrentPosition(async (position) => {
+  console.log(locationRef.current)
+  React.useLayoutEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
       console.log(position)
+      if (!navigator.geolocation) {
+        setLocationInaccurate(true)
+      }
+
+      else if (position.coords.accuracy > 100) {
+        setLocationInaccurate(true)
+      }
+
+      else {
+        locationRef.current = position
+      }
+    })
+  }, [])
+
+  React.useLayoutEffect(() => {
+    (async () => {
+      if (locationRef.current && !locationInaccurate) {
+
       setUserLocation({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lat: locationRef.current.coords.latitude,
+        lng: locationRef.current.coords.longitude
       })
 
       let prevLocation = localStorage.getItem('userLocation')
       let prevDistance;
       if (prevLocation) {
         prevLocation = JSON.parse(prevLocation)
-        prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
+        prevDistance = findDistance(prevLocation.lat, prevLocation.lng, locationRef.current.coords.latitude, locationRef.current.coords.longitude)
       }
 
       else {
         prevDistance = 5
         localStorage.setItem('userLocation', JSON.stringify({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lat: locationRef.current.coords.latitude,
+          lng: locationRef.current.coords.longitude
         }))
       }
       
       let p = [[], [], [], []];
       let timeSinceLastLoad = getTimeSinceLastLoad();
-      prevDistance = findDistance(prevLocation.lat, prevLocation.lng, position.coords.latitude, position.coords.longitude)
+      prevDistance = findDistance(prevLocation.lat, prevLocation.lng, locationRef.current.coords.latitude, locationRef.current.coords.longitude)
       //Load cached places if loaded within 24 hours and within 5 km of last load
       if (prevDistance < 5 && timeSinceLastLoad < 24) {
         console.log('using local storage')
@@ -95,7 +115,6 @@ export default function App() {
       else {
         //store current time/date if not loaded within 24 hours
         localStorage.setItem('prevTime', Date.now())
-        console.log('loaded from api')
         for (let index = 0; index < searchArr.length; index++) {
            await axios.get(`https://corsanywhere.herokuapp.com/${YELP_API_BASE_URL}`,
            {
@@ -105,12 +124,13 @@ export default function App() {
           params: {
             locale: 'en_US',
             term: searchArr[index],
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
+            latitude: locationRef.current.coords.latitude,
+            longitude: locationRef.current.coords.longitude,
             limit: 30,
             sort_by: 'distance'
           }
          }).then((response) => {  
+          console.log('loaded from api')
            p[index] = response.data.businesses
            setPlaces(p)
      }).catch((e) => {console.log(e)})
@@ -137,7 +157,7 @@ export default function App() {
 
 
     localStorage.setItem('places', JSON.stringify(p))
-    localStorage.setItem('userLocation', JSON.stringify({lat: position.coords.latitude, lng: position.coords.longitude}))
+    localStorage.setItem('userLocation', JSON.stringify({lat: locationRef.current.coords.latitude, lng: locationRef.current.coords.longitude}))
   }
   
       let search = localStorage.getItem('search')
@@ -161,21 +181,25 @@ export default function App() {
         else {
           
           localStorage.setItem('amount', '20')
-        }
-  }, () => {console.log('location failed')}, {timeout: 10000, enableHighAccuracy: true}); 
-}
-  , [])
+        } 
+      }
+    })();}
+  , [locationInaccurate])
 
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element= {
-          userLocation ?
+          !locationInaccurate ?
+          (userLocation ?
           <Mapped 
           places = {curPlaces} 
           userLocation = {[userLocation.lat, userLocation.lng]
-          }/>: <div>Loading...</div>}/>
+          }/>: <div>Loading...</div>): <LocationInput onSubmit = {(lat, lon) => { 
+            locationRef.current = {coords: {accuracy: 0, latitude: lat, longitude: lon}} 
+            setLocationInaccurate(false)
+            }}/>}/>
           <Route path="/search" element = {
           <Search 
           selected = {searchSelect}
