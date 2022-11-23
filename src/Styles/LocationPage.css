@@ -1,0 +1,80 @@
+.locationInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #FFDDDDDD;
+}
+
+.locationInputForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.locationInput {
+    font-family: 'Kanit';
+    border-radius: .5vw;
+    border-width: 0px;
+    padding: .5vw;
+    width: 10.5vw;
+    height: 2vw;
+    margin-bottom: 1vw;
+}
+
+.locationInput:focus {
+    outline: none
+}
+
+.locationInputLabel {
+    font-family: 'Kanit';
+    color: white;
+    font-size: 1.5vw;
+    text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
+                 .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+}
+
+.locInputText {
+    font-size: 1.5vw;
+    color: white;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    padding: 2vw;
+    text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
+                 .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+}
+
+.locInputInnerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1vw;
+}
+
+.locInputBtn {
+    width: 6vw;
+    height: 2vw;
+    font-size: .6vw;
+    font-family: 'Kanit';
+    border-radius: .5vw;
+    background-color: #FFAAAA;
+    line-height: 1;
+    border-width: 0;
+    padding: .2vw;
+    transition: all .2s ease-in-out;
+    color: white;
+    margin: 1vw;
+}
+
+.locInputBtn:hover {
+    transition: all .2s ease-in-out;
+    /*background-color: #FF7777;*/
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+}

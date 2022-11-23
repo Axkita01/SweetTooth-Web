@@ -59,22 +59,21 @@ export default function App() {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
 
-  console.log(locationRef.current)
+  
   React.useLayoutEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position)
       if (!navigator.geolocation) {
         setLocationInaccurate(true)
       }
 
-      else if (position.coords.accuracy > 100) {
+      else if (position.coords.accuracy > 200) {
         setLocationInaccurate(true)
       }
 
       else {
         locationRef.current = position
       }
-    })
+    }, null,{enableHighAccuracy: true})
   }, [])
 
   React.useLayoutEffect(() => {
@@ -196,10 +195,31 @@ export default function App() {
           <Mapped 
           places = {curPlaces} 
           userLocation = {[userLocation.lat, userLocation.lng]
-          }/>: <div>Loading...</div>): <LocationInput onSubmit = {(lat, lon) => { 
+          }/>: <div>Loading...</div>): 
+          <LocationInput 
+          onSubmit = {(lat, lon) => { 
             locationRef.current = {coords: {accuracy: 0, latitude: lat, longitude: lon}} 
             setLocationInaccurate(false)
-            }}/>}/>
+            }}
+            useLastLocation = {() => {
+              let prevLocation = localStorage.getItem('userLocation')
+              if (prevLocation) {
+                prevLocation = JSON.parse(prevLocation)
+                locationRef.current = {coords: {accuracy: 0, latitude: prevLocation.lat, longitude: prevLocation.lng}}
+                setLocationInaccurate(false)
+              }
+              else {
+                alert('No previous location found')
+              }
+            }}
+            useCurrentLocation = {() => {
+              navigator.geolocation.getCurrentPosition((position) => {
+                  locationRef.current = position
+                  setLocationInaccurate(false)
+              }, null,{enableHighAccuracy: true})
+            }}
+            />}
+            />
           <Route path="/search" element = {
           <Search 
           selected = {searchSelect}

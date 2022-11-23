@@ -1,4 +1,5 @@
 import React from "react";
+import '../Styles/LocationPage.css'
 
 
 export default function LocationInput(props) {
@@ -7,35 +8,54 @@ export default function LocationInput(props) {
     console.log(parseFloat(currentInputLat));
     return (
         <div className = 'locationInputContainer'>
-            <form onSubmit = {() => props.onSubmit(
+        <div className = 'locInputInnerContainer'>
+            <span className = 'locInputText'>
+                Oops! It appears your location is inaccurate. Please enter your location
+                below.
+            </span>
+        </div>
+        <div className = 'locInputInnerContainer'>
+            <form className = 'locationInputForm'onSubmit = {() => props.onSubmit(
                 parseFloat(currentInputLat), parseFloat(currentInputLon))}>
-                <label for = 'latInput'>
+                <label 
+                for = 'latInput'
+                className="locationInputLabel"
+                >
                     Latitude
                 </label>
                 <input 
-                id = 'latInput'
+                id = 'lonInput'
+                className = 'locationInput'
                 value = {currentInputLat} type = 'text'
                 onChange = {(e) => {setCurrentInputLat(e.target.value)}}
                 />
                 
-                <label for = 'lonInput'>
+                <label 
+                className="locationInputLabel"
+                for = 'lonInput'>
                     Longitude
                 </label>
 
                 <input 
+                className = 'locationInput'
                 id = 'lonInput'
                 value = {currentInputLon} 
                 type = 'text'
                 onChange = {(e) => {setCurrentInputLon(e.target.value)}}
                 />
-                <input type = 'submit'/>
+                <input type = 'submit' className = 'locInputBtn'/>
             </form>
-            <button onClick = {props.useCurrentLocation}>
+        </div>
+
+        <div className = 'locInputInnerContainer'>
+            <button className = 'locInputBtn' onClick = {props.useCurrentLocation}>
                 Use Current Location
             </button>
-            <button onClick = {props.useLastLocation}>
+            <button className = 'locInputBtn'  onClick = {props.useLastLocation}>
                 Reload Last Location Entered
             </button>
+        </div>
+
         </div>
     )
 }
