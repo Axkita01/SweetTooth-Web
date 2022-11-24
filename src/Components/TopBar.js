@@ -33,11 +33,11 @@ export default function TopBar (props) {
             </button>
 
             <button 
-            onClick = {props.settingsToggle}
+            onClick = {() => props.setLocationInaccurate(true)}
             className = 'navButton'
             id = 'two'
             >
-               Settings
+               Reset Location
             </button>
         </div>
     )

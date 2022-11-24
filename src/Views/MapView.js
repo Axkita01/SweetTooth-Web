@@ -114,7 +114,7 @@ export default function Mapped (props) {
     const MemoizedTopBar = React.useMemo(() => {
         return (
             <TopBar 
-            //refreshfunc = {() => {props.refresh;}}
+            setLocationInaccurate = {props.setLocationInaccurate}
             cardToggle = {() => {toggleCards((prev) => !prev)}}
             settingsToggle = {() => {window.location.href = '/settings'}}
             cardsEnabled = {toggleCards}
@@ -140,6 +140,7 @@ export default function Mapped (props) {
                setPlaceLocation(center)
                setZoom(zoom)
             }}
+            minZoom = {12}
             center = {placeLocation}
             showsUserLocation = {true}
             zoom = {zoom}

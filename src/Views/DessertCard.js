@@ -8,14 +8,7 @@ import Boba from '../assets/Boba.png';
 import Bakery from '../assets/Bakery.png';
 import Yelp from '../assets/YelpLogo.png'
 import '../Styles/DessertCard.css';
-
-
-const images = {
-    'Ice Cream': IceCream,
-    'Coffee': Coffee,
-    'Boba': Boba,
-    'Bakery': Bakery,
-}
+import {images} from '../assets/images.js';
 
 
 export default function DessertCard(props) {
@@ -84,7 +77,7 @@ export default function DessertCard(props) {
             <div
             className = 'dessertCardInnerContainer'
             >
-                {`Reviews: ${props.num_ratings}\n`}
+                {`Reviews: ${props.num_ratings}`}
             </div>
             
             <div className = 'dessertCardInnerContainer placeImgContain'>
@@ -92,7 +85,11 @@ export default function DessertCard(props) {
                 className = 'dessertCardInnerContainer'
                 >
                     <div className = 'placeImg'>
+                        {
+                        props.place_img ?
                         <img src = {props.place_img} style = {{height: '90%', borderRadius: '1vw',}}/>
+                        :<div>No Image available</div>
+                        }
                     </div>
                 </div>
             </div>

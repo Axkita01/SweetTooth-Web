@@ -36,7 +36,7 @@ export default function App() {
   const [loading, setLoading] = React.useState(true)
   const locationRef = React.useRef(null)
 
-  console.log(userLocation)
+  
   function searchChange (searchSelect, places) {
     let filter = []
     for (let i = 0; i < searchSelect.length; i++) {
@@ -138,7 +138,6 @@ export default function App() {
       }
 
   let food_types = {}
-  //EXTREMELY inefficient, make O(n) later using sets
   //Puts types of places onto each places object as a dictionary
   //Based on which search they appeared in
   for (let i = 0; i < p.length; i++) {
@@ -173,21 +172,11 @@ export default function App() {
             localStorage.setItem('search', JSON.stringify({search: [true, true, true, true]}))
           }
 
-        let a = localStorage.getItem('amount')
-        
-        if (a) {
-          
-        }
-
-        else {
-          
-          localStorage.setItem('amount', '20')
-        } 
       }
     })();
     setLoading(false)
   }
-  , [locationInaccurate, locationRef.current])
+  , [locationInaccurate])
 
   return (
     <>
@@ -197,6 +186,7 @@ export default function App() {
           !locationInaccurate ?
           (!loading && userLocation ?
           <Mapped 
+          setLocationInaccurate={setLocationInaccurate}
           places = {curPlaces} 
           userLocation = {[userLocation.lat, userLocation.lng]
           }/>: <div>Loading...</div>): 
