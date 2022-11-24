@@ -77,6 +77,7 @@ export default function Mapped (props) {
 
     useEffect(() => {
         dispatch({type: 'places-cleared'})
+        setPlaceLocation(props.userLocation)
         let count = 0;
         let place;
         let seen = new Set()
