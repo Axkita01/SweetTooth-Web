@@ -4,45 +4,36 @@ import '../Styles/LocationPage.css'
 
 export default function LocationInput(props) {
     const [currentInputLat, setCurrentInputLat] = React.useState("");
-    const [currentInputLon, setCurrentInputLon] = React.useState("");
-    console.log(parseFloat(currentInputLat));
+
     return (
         <div className = 'locationInputContainer'>
         <div className = 'locInputInnerContainer'>
             <span className = 'locInputText'>
                 Oops! It appears your location is inaccurate. Please enter your location
-                below.
+                below to continue.
             </span>
         </div>
+
         <div className = 'locInputInnerContainer'>
-            <form className = 'locationInputForm'onSubmit = {() => props.onSubmit(
-                parseFloat(currentInputLat), parseFloat(currentInputLon))}>
+            <form className = 'locationInputForm' onSubmit = {(e) => {
+                props.handleSubmit(currentInputLat)
+                e.preventDefault()
+            }}>
                 <label 
                 for = 'latInput'
                 className="locationInputLabel"
                 >
-                    Latitude
+                    Location
                 </label>
                 <input 
                 id = 'lonInput'
                 className = 'locationInput'
-                value = {currentInputLat} type = 'text'
+                value = {currentInputLat} 
+                type = 'text'
+                //pattern = '[0-9]{1,3}.[0-9]{4}'
                 onChange = {(e) => {setCurrentInputLat(e.target.value)}}
                 />
                 
-                <label 
-                className="locationInputLabel"
-                for = 'lonInput'>
-                    Longitude
-                </label>
-
-                <input 
-                className = 'locationInput'
-                id = 'lonInput'
-                value = {currentInputLon} 
-                type = 'text'
-                onChange = {(e) => {setCurrentInputLon(e.target.value)}}
-                />
                 <input type = 'submit' className = 'locInputBtn'/>
             </form>
         </div>

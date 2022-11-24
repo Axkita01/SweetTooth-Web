@@ -38,11 +38,14 @@
 }
 
 .locInputText {
+    display: flex;
     font-size: 1.5vw;
     color: white;
     font-weight: bold;
     font-family: 'Kanit', sans-serif;
+    text-align: center;
     padding: 2vw;
+    width: 50vw;
     text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
                  .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
 }

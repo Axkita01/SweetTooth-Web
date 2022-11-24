@@ -33,6 +33,7 @@ export default function App() {
   const [curPlaces, setCurPlaces] = React.useState([])
   const [searchSelect, setSearchSelect] = React.useState([true, true, true, true])
   const [locationInaccurate, setLocationInaccurate] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
   const locationRef = React.useRef(null)
 
 
@@ -182,7 +183,9 @@ export default function App() {
           localStorage.setItem('amount', '20')
         } 
       }
-    })();}
+    })();
+    setLoading(false)
+  }
   , [locationInaccurate])
 
   return (
@@ -191,16 +194,33 @@ export default function App() {
         <Routes>
           <Route path="/" element= {
           !locationInaccurate ?
-          (userLocation ?
+          (!loading && userLocation ?
           <Mapped 
           places = {curPlaces} 
           userLocation = {[userLocation.lat, userLocation.lng]
           }/>: <div>Loading...</div>): 
           <LocationInput 
-          onSubmit = {(lat, lon) => { 
-            locationRef.current = {coords: {accuracy: 0, latitude: lat, longitude: lon}} 
-            setLocationInaccurate(false)
+            handleSubmit = {(address) => {
+              axios.get(
+                `https://us1.locationiq.com/v1/search`,
+                {params: {
+                  key: process.env.REACT_APP_GEOCODE_KEY,
+                  q: address,
+                  format: 'json'
+                }}
+              ).then((response) => {
+                locationRef.current = {
+                  coords: {
+                    latitude: response.data[0].lat,
+                    longitude: response.data[0].lon
+                  }
+                }
+                setLocationInaccurate(false)
+              }).catch((e) => {
+                console.log(e)
+              })
             }}
+
             useLastLocation = {() => {
               let prevLocation = localStorage.getItem('userLocation')
               if (prevLocation) {
