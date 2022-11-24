@@ -65,7 +65,6 @@ export default function Search(props) {
           <button 
           className = 'searchSaveButton' 
           onClick = {() => {
-            console.log('btn', searchSelectBtn)
             localStorage.setItem('search', JSON.stringify({search: searchSelectBtn})); 
             window.location.href = '/'
           }}>

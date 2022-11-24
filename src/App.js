@@ -81,7 +81,6 @@ export default function App() {
   React.useEffect(() => {
     (async () => {
       if (locationRef.current && !locationInaccurate) {
-      console.log('useEffect')
       setUserLocation({
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
@@ -107,7 +106,6 @@ export default function App() {
       prevDistance = findDistance(prevLocation.lat, prevLocation.lng, locationRef.current.coords.latitude, locationRef.current.coords.longitude)
       //Load cached places if loaded within 24 hours and within 5 km of last load
       if (prevDistance < 5 && timeSinceLastLoad < 24) {
-        console.log('using local storage')
         var prevPlaces = localStorage.getItem('places')
         p = JSON.parse(prevPlaces)
         setPlaces(p)
@@ -131,7 +129,6 @@ export default function App() {
             sort_by: 'distance'
           }
          }).then((response) => {  
-          console.log('loaded from api')
            p[index] = response.data.businesses
            setPlaces(p)
      }).catch((e) => {console.log(e)})
@@ -176,7 +173,7 @@ export default function App() {
     })();
     setLoading(false)
   }
-  , [locationInaccurate])
+  , [locationInaccurate, locationRef.current])
 
   return (
     <>
