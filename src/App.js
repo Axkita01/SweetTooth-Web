@@ -78,7 +78,7 @@ export default function App() {
     }, null,{enableHighAccuracy: true})
   }, [])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     (async () => {
       if (locationRef.current && !locationInaccurate) {
       setUserLocation({
