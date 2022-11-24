@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import '../Styles/Search.css';
 import {images} from '../assets/images.js';
 
-const searchArr = ['Coffee', 'Boba', 'Ice Cream', 'Bakery']
+const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
 export default function Search(props) {
 

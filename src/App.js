@@ -32,11 +32,11 @@ export default function App() {
   const [places, setPlaces] = React.useState([])
   const [curPlaces, setCurPlaces] = React.useState([])
   const [searchSelect, setSearchSelect] = React.useState([true, true, true, true])
-  const [locationInaccurate, setLocationInaccurate] = React.useState(false)
+  const [locationInaccurate, setLocationInaccurate] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
   const locationRef = React.useRef(null)
 
-
+  console.log(userLocation)
   function searchChange (searchSelect, places) {
     let filter = []
     for (let i = 0; i < searchSelect.length; i++) {
@@ -73,14 +73,15 @@ export default function App() {
 
       else {
         locationRef.current = position
+        setLocationInaccurate(false)
       }
     }, null,{enableHighAccuracy: true})
   }, [])
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     (async () => {
       if (locationRef.current && !locationInaccurate) {
-
+      console.log('useEffect')
       setUserLocation({
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
@@ -186,7 +187,7 @@ export default function App() {
     })();
     setLoading(false)
   }
-  , [locationInaccurate])
+  , [locationInaccurate, locationRef.current])
 
   return (
     <>
