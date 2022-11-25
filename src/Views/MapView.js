@@ -60,6 +60,7 @@ export default function Mapped (props) {
             setSwiperIndex(index)
             toggleCards(true)
         }}*/
+         style = {{zIndex: 100}}
          index = {index}
          loadingEnabled = {true}
          onClick = {() => {
