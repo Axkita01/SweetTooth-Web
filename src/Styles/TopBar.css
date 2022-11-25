@@ -21,8 +21,8 @@
 
 .navButton {
     display: flex;
-    height: 6vw;
-    width: 8vw;
+    height: 4vw;
+    width: 7vw;
     z-index: 4;
     justify-content: center;
     align-items: center;
@@ -66,6 +66,8 @@
 @media screen and (max-width: 500px) {
     .navButton{
         border-radius: 5px;
+        height: 6vw;
+        width: 7vw;
     }
 
     .navContainer {

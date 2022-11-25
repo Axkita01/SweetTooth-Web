@@ -60,6 +60,24 @@ export default function App() {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
 
+  
+  React.useLayoutEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (!navigator.geolocation) {
+        setLocationInaccurate(true)
+      }
+
+      else if (position.coords.accuracy > 200) {
+        setLocationInaccurate(true)
+      }
+
+      else {
+        locationRef.current = position
+        setLocationInaccurate(false)
+      }
+    }, null,{enableHighAccuracy: true})
+  }, [])
+
   React.useLayoutEffect(() => {
     (async () => {
       if (locationRef.current !== null && !locationInaccurate) {
@@ -96,21 +114,22 @@ export default function App() {
       else {
         //store current time/date if not loaded within 24 hours
         localStorage.setItem('prevTime', Date.now())
+        console.log(searchArr)
         for (let index = 0; index < searchArr.length; index++) {
-           await axios.get(`https://corsanywhere.herokuapp.com/${YELP_API_BASE_URL}`,
+           await axios.get('http://localhost:5000/',
            {
-           headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`
-          },
-          params: {
-            locale: 'en_US',
-            term: searchArr[index],
-            latitude: locationRef.current.coords.latitude,
-            longitude: locationRef.current.coords.longitude,
-            limit: 30,
-            sort_by: 'distance'
-          }
-         }).then((response) => {  
+            params: {
+              term: searchArr[index],
+              latitude: locationRef.current.coords.latitude,
+              longitude: locationRef.current.coords.longitude,
+              limit: 50
+            },
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${process.env.YELP_API_KEY}`
+            }
+         }).then((response) => { 
+          console.log(response)
            p[index] = response.data.businesses
            setPlaces(p)
      }).catch((e) => {console.log(e)})
@@ -156,25 +175,6 @@ export default function App() {
     setLoading(false)
   }
   , [locationInaccurate, locationRef.current])
-
-
-  React.useLayoutEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      if (!navigator.geolocation) {
-        setLocationInaccurate(true)
-      }
-
-      else if (position.coords.accuracy > 200) {
-        setLocationInaccurate(true)
-      }
-
-      else {
-        locationRef.current = position
-        setLocationInaccurate(false)
-      }
-    }, null,{enableHighAccuracy: true})
-  }, [])
-
 
   return (
     <>
