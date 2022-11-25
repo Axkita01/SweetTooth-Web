@@ -68,6 +68,7 @@
     font-family: 'Kanit';
     display: flex;
     height: 2vw;
+    width: 2vw;
     font-size: .8vw;
     padding: 1%;
     color: white;
@@ -111,6 +112,7 @@
 
 
 @media screen and (max-width: 500px) {
+
     .dessertCardInnerContainer {
         text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
                  .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
@@ -119,6 +121,27 @@
     .distanceText {
         text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
                  .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+        font-size: 2vw;
+    }
+
+    .dessertCardInnerContainer {
+        font-size: 3vw;
+    }
+
+    .dessertCardHeader {
+        height: 8vw;
+    }
+
+    .imgBtn {
+        height: 4vw;
+        width: 4vw
+    }
+
+    .placebtn {
+        height: 4vw;
+        border-radius: 1vw;
+        font-size: 1.5vw;
+        
     }
 }
 /*

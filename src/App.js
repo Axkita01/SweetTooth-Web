@@ -214,7 +214,6 @@ export default function App() {
               if (prevLocation) {
                 prevLocation = JSON.parse(prevLocation)
                 locationRef.current = {coords: {accuracy: 0, latitude: prevLocation.lat, longitude: prevLocation.lng}}
-                setUserLocation({lat: prevLocation.lat, lng: prevLocation.lng})
                 setLocationInaccurate(false)
               }
               else {

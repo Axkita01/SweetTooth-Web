@@ -33,7 +33,7 @@ export default function DessertCard(props) {
         (type) => {
             return (
             <li key = {type}>
-                <img style = {{height: '3vw', borderRadius: '1.5vw', borderStyle: 'solid', marginLeft: '.1vw', marginRight: '.5vw'}} src={images[type]} alt={type}/>
+                <img style = {{height: '3vw', borderRadius: '1.5vw', borderStyle: 'solid', borderWidth: '1px',marginLeft: '.1vw', marginRight: '.5vw'}} src={images[type]} alt={type}/>
             </li>
             )
         }
