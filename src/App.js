@@ -60,28 +60,9 @@ export default function App() {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
 
-  
-  React.useLayoutEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      if (!navigator.geolocation) {
-        setLocationInaccurate(true)
-      }
-
-      else if (position.coords.accuracy > 200) {
-        setLocationInaccurate(true)
-      }
-
-      else {
-        locationRef.current = position
-        setLocationInaccurate(false)
-      }
-    }, null,{enableHighAccuracy: true})
-  }, [])
-
   React.useLayoutEffect(() => {
     (async () => {
       if (locationRef.current !== null && !locationInaccurate) {
-        alert('useEffect')
       setUserLocation({
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
@@ -175,6 +156,25 @@ export default function App() {
     setLoading(false)
   }
   , [locationInaccurate, locationRef.current])
+
+
+  React.useLayoutEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (!navigator.geolocation) {
+        setLocationInaccurate(true)
+      }
+
+      else if (position.coords.accuracy > 200) {
+        setLocationInaccurate(true)
+      }
+
+      else {
+        locationRef.current = position
+        setLocationInaccurate(false)
+      }
+    }, null,{enableHighAccuracy: true})
+  }, [])
+
 
   return (
     <>
