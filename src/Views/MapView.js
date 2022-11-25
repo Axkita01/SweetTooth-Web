@@ -73,7 +73,7 @@ export default function Mapped (props) {
          key = {index}
          >
             
-        </Marker>)} ))}, [state.places, props.userLocation])
+        </Marker>)} ))}, [state.places])
 
     useEffect(() => {
         dispatch({type: 'places-cleared'})

@@ -80,7 +80,8 @@ export default function App() {
 
   React.useLayoutEffect(() => {
     (async () => {
-      if (locationRef.current && !locationInaccurate) {
+      if (locationRef.current !== null && !locationInaccurate) {
+        alert('useEffect')
       setUserLocation({
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
