@@ -21,14 +21,14 @@
 
 .navButton {
     display: flex;
-    height: 4vw;
+    height: 6vw;
     width: 7vw;
     z-index: 4;
     justify-content: center;
     align-items: center;
     background-color: white;
     position:absolute;
-    top: 10%;
+    top: 12%;
     font-size: 1.5vw;
     border-radius: 10px;
     border-style: solid;
