@@ -2,25 +2,13 @@
 import logo from '../assets/SweetToothLogo-transparent.png.png';
 import React, {useRef} from 'react';
 import googleLogo from '../assets/GoogleMaps.png';
-import IceCream from '../assets/IceCream.png';
-import Coffee from '../assets/Coffee.png';
-import Boba from '../assets/Boba.png';
-import Bakery from '../assets/Bakery.png';
 import Yelp from '../assets/YelpLogo.png'
 import '../Styles/DessertCard.css';
-import {images} from '../assets/images.js';
+import {images, ratings} from '../assets/images.js';
 
 
 export default function DessertCard(props) {
     //Props are name, image, rating, and description, num_ratings, navigatefunc (maybe more later) type is list of strings denoting types of desserts
-    const intensity = () => {
-        try {
-            return (Math.round(Math.log(5, props.rating)) * 15*Math.log(props.num_ratings))
-        }
-        catch {
-            return 0
-        }
-    }
 
     //FIXME: implement placeholder for loading
     const types_list = useRef()
@@ -41,7 +29,9 @@ export default function DessertCard(props) {
     </div>
 
     const distance_miles = (props.distance * 0.000621371).toFixed(2)
-    
+    const rounded_rating = Math.round(props.rating/0.5) * 0.5
+    const rating_image = ratings[rounded_rating]
+
     return (
             
         <div className = 'dessertCardContainer'>
@@ -73,7 +63,11 @@ export default function DessertCard(props) {
             >
                 {`Rating: ${props.rating}`}
             </div>
-               
+
+            <div className='dessertCardInnerContainer' style = {{width: '6vw'}}>
+                <img style = {{width: '100%'}} src = {rating_image}/>
+            </div>
+
             <div
             className = 'dessertCardInnerContainer'
             >

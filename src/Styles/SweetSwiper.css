@@ -1,3 +1,8 @@
+@keyframes slideIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .swiperContainer {
     width: 100%;
     display: flex; 
@@ -6,7 +11,7 @@
     background-color: transparent;
     position: absolute;
     right: 30vw;
-    top: 9.5vw
+    top: 6.5vw;
 }
 
 .SweetSwiper {
@@ -49,7 +54,7 @@
     }
 
     .swiperContainer {
-        top: 6.5vw;
+        top: 9.5vw;
         right: 14.24vw
     }
 
@@ -58,6 +63,13 @@
         width: 3.5vw;
         font-size: 1.5vw;
         border-radius: 1.75vw
+    }
+
+    .swiperButtonContainer {
+        margin-left: 28%;
+        position: relative;
+        top: 1vw;
+        bottom: 4.5vw
     }
     
 }    

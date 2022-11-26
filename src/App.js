@@ -9,8 +9,6 @@ import LocationInput from './Components/LocationInput';
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
-const YELP_API_BASE_URL = 'https://api.yelp.com/v3/businesses/search'
-
 //Function to get time since last load in hours. If no previous time, return 24 hours
 function getTimeSinceLastLoad() {
     let lastLoad = localStorage.getItem('prevTime');
@@ -116,7 +114,7 @@ export default function App() {
         localStorage.setItem('prevTime', Date.now())
         console.log(searchArr)
         for (let index = 0; index < searchArr.length; index++) {
-           await axios.get('http://localhost:5000/',
+           await axios.get('http://localhost:5000/places',
            {
             params: {
               term: searchArr[index],
@@ -124,10 +122,6 @@ export default function App() {
               longitude: locationRef.current.coords.longitude,
               limit: 50
             },
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${process.env.YELP_API_KEY}`
-            }
          }).then((response) => { 
           console.log(response)
            p[index] = response.data.businesses
@@ -191,9 +185,8 @@ export default function App() {
           <LocationInput 
             handleSubmit = {(address) => {
               axios.get(
-                `https://us1.locationiq.com/v1/search`,
+                `http://localhost:5000/geocode`,
                 {params: {
-                  key: process.env.REACT_APP_GEOCODE_KEY,
                   q: address,
                   format: 'json'
                 }}

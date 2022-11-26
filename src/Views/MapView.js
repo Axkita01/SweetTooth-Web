@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from 'react'
-import {Map, Marker} from 'pigeon-maps'
+import {Map, Marker, Overlay} from 'pigeon-maps'
 import TopBar from '../Components/TopBar'
 import SweetSwiper from '../Components/Swiper'
+import star_img from '../assets/Star_Center.png'
 import '../Styles/MapView.css'
 
 const height = document.scrollingElement.scrollHeight
@@ -112,6 +113,19 @@ export default function Mapped (props) {
         )
     }, [state.places, swiperIndex])
     
+    const star = React.useMemo(() => {
+        return (
+            <Overlay
+            style = {{width: '2vw', height: '2vw'}}
+            anchor={props.userLocation}
+            >
+                <img 
+                style = {{height: '100%', width: '100%'}}
+                src = {star_img}/>
+            </Overlay>
+        )
+    })
+
     const MemoizedTopBar = React.useMemo(() => {
         return (
             <TopBar 
@@ -147,6 +161,7 @@ export default function Mapped (props) {
             zoom = {zoom}
             >
                 {markers}
+                {star}
             </Map>
         </div>
     )

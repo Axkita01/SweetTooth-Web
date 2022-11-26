@@ -21,6 +21,7 @@
     border-width: 0px;
     padding: .5vw;
     width: 10.5vw;
+    font-size: 1vw;
     height: 2vw;
     margin-bottom: 1vw;
 }
@@ -81,3 +82,28 @@
     color: gray;
     cursor: pointer;
 }
+
+@media screen and (max-width: 500px) {
+    .locInputText {
+        font-size: 3vw;
+        padding: 4vw;
+        width: 90vw;
+    }
+
+    .locationInput {
+        font-size: 2vw;
+        width: 20vw;
+        height: 4vw;
+    }
+
+    .locationInputLabel {
+        font-size: 3vw;
+    }
+
+    .locInputBtn {
+        width: 12vw;
+        height: 4vw;
+        font-size: 1.2vw;
+    }
+}
+    

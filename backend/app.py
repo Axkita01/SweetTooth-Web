@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/')
+@app.route('/places')
 def get_places():
     data = request.args
     fetched_data = get(
@@ -15,8 +15,14 @@ def get_places():
         params=data, 
         headers={'Authorization': 'Bearer ***'}
         ).json()
-    print(data, 'request data')
-    print(fetched_data, 'fetched data')
     return fetched_data
 
-    
+@app.route('/geocode')
+def geocode():
+    data = dict(request.args)
+    data['key'] = '***'
+    fetched_data = get(
+        'https://us1.locationiq.com/v1/search',
+        params=data,  
+    ).json()
+    return fetched_data
