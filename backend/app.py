@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
+#places api
 @app.route('/places')
 def get_places():
     data = request.args
@@ -18,6 +18,7 @@ def get_places():
         ).json()
     return fetched_data
 
+#geocode api
 @app.route('/geocode')
 def geocode():
     data = dict(request.args)
