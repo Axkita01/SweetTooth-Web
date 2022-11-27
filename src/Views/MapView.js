@@ -151,8 +151,7 @@ export default function Mapped (props) {
             {/*Map*/}
             <Map
             className = 'map'
-            onBoundsChanged={({center,zoom}) => {
-               setPlaceLocation(center)
+            onBoundsChanged={({zoom}) => {
                setZoom(zoom)
             }}
             minZoom = {12}

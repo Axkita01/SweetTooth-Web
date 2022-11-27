@@ -29,7 +29,7 @@ export default function App() {
   const [userLocation, setUserLocation] = React.useState(null)
   const [places, setPlaces] = React.useState([])
   const [curPlaces, setCurPlaces] = React.useState([])
-  const [searchSelect, setSearchSelect] = React.useState([true, true, true, true])
+  const [searchSelect] = React.useState([true, true, true, true])
   const [locationInaccurate, setLocationInaccurate] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
   const locationRef = React.useRef(null)
@@ -73,7 +73,7 @@ export default function App() {
         locationRef.current = position
         setLocationInaccurate(false)
       }
-    }, null,{enableHighAccuracy: true})
+    }, () => {alert('Location not enabled')},{enableHighAccuracy: true, timeout:5000})
   }, [])
 
   React.useLayoutEffect(() => {
