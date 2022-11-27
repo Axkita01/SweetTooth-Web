@@ -120,11 +120,11 @@ export default function Mapped (props) {
             anchor={props.userLocation}
             >
                 <img 
-                style = {{height: '100%', width: '100%'}}
+                style = {{height: '100%', width: '100%', zIndex: 2}}
                 src = {star_img}/>
             </Overlay>
         )
-    })
+    }, [props.userLocation])
 
     const MemoizedTopBar = React.useMemo(() => {
         return (

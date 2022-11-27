@@ -114,7 +114,7 @@ export default function App() {
         localStorage.setItem('prevTime', Date.now())
         console.log(searchArr)
         for (let index = 0; index < searchArr.length; index++) {
-           await axios.get('http://localhost:5000/places',
+           await axios.get(`${process.env.REACT_APP_API_URL}/places`,
            {
             params: {
               term: searchArr[index],
@@ -185,12 +185,13 @@ export default function App() {
           <LocationInput 
             handleSubmit = {(address) => {
               axios.get(
-                `http://localhost:5000/geocode`,
+                `${process.env.REACT_APP_API_URL}/geocode`,
                 {params: {
                   q: address,
                   format: 'json'
                 }}
               ).then((response) => {
+                console.log(response)
                 locationRef.current = {
                   coords: {
                     latitude: response.data[0].lat,
