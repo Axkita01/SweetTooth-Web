@@ -59,7 +59,7 @@ export default function App() {
   }
 
   
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       if (!navigator.geolocation) {
         setLocationInaccurate(true)
@@ -76,7 +76,7 @@ export default function App() {
     }, () => {alert('Location not enabled')},{enableHighAccuracy: true, timeout:5000})
   }, [])
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     (async () => {
       if (locationRef.current !== null && !locationInaccurate) {
       setUserLocation({
