@@ -10,7 +10,7 @@
     align-items: center;
     background-color: transparent;
     position: absolute;
-    right: 30vw;
+    right: 31%;
     top: 6.5vw;
 }
 
@@ -18,11 +18,19 @@
     width: 40%; 
     height: 40%;
     background: transparent; 
-    margin-left: 35%
+    position: relative;
+    left: 5%
+}
+
+.swiper {
+    margin: 0;
+    justify-content: center;
+    align-items: center;
 }
 
 .swiperButtonContainer {
-    margin-left: 10%;
+    position: relative;
+    left: 4%;
     width: 25%;
     display: flex;
     flex-direction: row;
@@ -46,11 +54,14 @@
     margin: 0
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
 
     .SweetSwiper {
-        width: 60%;
+        width: 70%;
         height: 70%;
+        position: relative;
+        left: 15%;
+
     }
 
     .swiperContainer {
@@ -66,10 +77,9 @@
     }
 
     .swiperButtonContainer {
-        margin-left: 28%;
         position: relative;
-        top: 1vw;
-        bottom: 4.5vw
+        bottom: 4.5vw;
+        left: 14%;
     }
     
 }    

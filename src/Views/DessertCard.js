@@ -21,7 +21,7 @@ export default function DessertCard(props) {
         (type) => {
             return (
             <li key = {type}>
-                <img style = {{height: '3vw', borderRadius: '1.5vw', borderStyle: 'solid', borderWidth: '1px',marginLeft: '.1vw', marginRight: '.5vw'}} src={images[type]} alt={type}/>
+                <img className = 'typeImg' src={images[type]} alt={type}/>
             </li>
             )
         }
@@ -64,7 +64,7 @@ export default function DessertCard(props) {
                 {`Rating: ${props.rating}`}
             </div>
 
-            <div className='dessertCardInnerContainer' style = {{width: '6vw'}}>
+            <div className='dessertCardInnerContainer yelpStars'>
                 <img style = {{width: '100%'}} src = {rating_image}/>
             </div>
 
