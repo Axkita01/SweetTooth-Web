@@ -1,6 +1,6 @@
 
 .distanceText {
-    font-size: 2vw;
+    font-size: 1vw;
     color: white;
     font-family: 'Kanit';
     text-shadow: 1px 0 #DDDDDD, -1px 0 #DDDDDD, 0 1px #DDDDDD, 0 -1px #DDDDDD,
@@ -132,7 +132,7 @@ margin-right: .5vw
     .distanceText {
         text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
                  .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
-        font-size: 2vw;
+        font-size: 3vw;
     }
 
     .dessertCardInnerContainer {
