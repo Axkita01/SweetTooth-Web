@@ -171,6 +171,7 @@ export default function App() {
   , [locationInaccurate, locationRef.current])
 
   return (
+    //Main application
     <>
       <Router>
         <Routes>
