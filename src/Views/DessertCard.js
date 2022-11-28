@@ -38,6 +38,7 @@ export default function DessertCard(props) {
             <div className = 'dessertCardHeader'>
                 <img
                 src={logo}
+                alt='SweetTooth Logo'
                 className ='image'
                 />
             </div>
@@ -65,7 +66,7 @@ export default function DessertCard(props) {
             </div>
 
             <div className='dessertCardInnerContainer yelpStars'>
-                <img style = {{width: '100%'}} src = {rating_image}/>
+                <img alt = 'yelp stars' style = {{width: '100%'}} src = {rating_image}/>
             </div>
 
             <div
@@ -81,7 +82,7 @@ export default function DessertCard(props) {
                     <div className = 'placeImg'>
                         {
                         props.place_img ?
-                        <img src = {props.place_img} style = {{height: '90%', borderRadius: '1vw',}}/>
+                        <img alt = 'place image' src = {props.place_img} style = {{height: '90%', borderRadius: '1vw',}}/>
                         :<div>No Image available</div>
                         }
                     </div>
@@ -106,7 +107,7 @@ export default function DessertCard(props) {
                 >
                     <img 
                     src = {googleLogo}
-                    
+                    alt = 'google maps logo'
                     style = {{height: '100%', width: '100%'}}/>
                 
                 </button>
@@ -119,6 +120,7 @@ export default function DessertCard(props) {
                 >
                     <img 
                     src = {Yelp}  
+                    alt = 'yelp logo'
                     style = {{height: '100%', width: '100%'}}/>
                 </button>
             </div>

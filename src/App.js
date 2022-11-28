@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Mapped from './Views/MapView';
 import Search from './Pages/Search';
 import LocationInput from './Components/LocationInput';
+import LoadingPage from './Pages/LoadingPage';
 
 
 
@@ -182,7 +183,7 @@ export default function App() {
           setLocationInaccurate={setLocationInaccurate}
           places = {curPlaces} 
           userLocation = {[userLocation.lat, userLocation.lng]
-          }/>: <div>Loading...</div>): 
+          }/>: <LoadingPage/>): 
           <LocationInput 
             handleSubmit = {(address) => {
               axios.get(
@@ -220,14 +221,15 @@ export default function App() {
               navigator.geolocation.getCurrentPosition((position) => {
                   locationRef.current = position
                   setLocationInaccurate(false)
-              }, null,{enableHighAccuracy: true})
+              }, () => alert('Failed to get location'),{enableHighAccuracy: true})
             }}
             />}
             />
           <Route path="/search" element = {
           <Search 
           selected = {searchSelect}
-          tot_places = {places}/>}/>
+          tot_places = {places}/>}
+          />
         </Routes>
       </Router>
     </>

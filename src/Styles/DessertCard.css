@@ -125,13 +125,13 @@ margin-right: .5vw
 @media screen and (max-width: 600px) {
 
     .dessertCardInnerContainer {
-        text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
-                 .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+        text-shadow: .5px 0 #DDDDDD, -1px 0 #DDDDDD, 0 1px #DDDDDD, 0 -1px #DDDDDD,
+                 .5px .5px #DDDDDD, -.5px -.5px #DDDDDD, .5px -.5px #DDDDDD, -.5px .5px #DDDDDD;
     }
 
     .distanceText {
-        text-shadow: .25px 0 #DDDDDD, -.5px 0 #DDDDDD, 0 .5px #DDDDDD, 0 -.5px #DDDDDD,
-                 .25px .25px #DDDDDD, -.25px -.25px #DDDDDD, .25px -.25px #DDDDDD, -.25px .25px #DDDDDD;
+        text-shadow: .5px 0 #DDDDDD, -1px 0 #DDDDDD, 0 1px #DDDDDD, 0 -1px #DDDDDD,
+                 .5px .5px #DDDDDD, -.5px -.5px #DDDDDD, .5px -.5px #DDDDDD, -.5px .5px #DDDDDD;
         font-size: 3vw;
     }
 

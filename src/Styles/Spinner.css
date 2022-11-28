@@ -1,0 +1,21 @@
+@keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+    
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 20vw;
+    height: 20vw;
+    animation: spin 1s ease-in-out .05s infinite;
+}
+
+.spinnerImage {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}

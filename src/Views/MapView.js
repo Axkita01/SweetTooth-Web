@@ -120,6 +120,7 @@ export default function Mapped (props) {
             anchor={props.userLocation}
             >
                 <img 
+                alt = 'current location picture'
                 style = {{height: '100%', width: '100%', zIndex: 2}}
                 src = {star_img}/>
             </Overlay>
@@ -151,6 +152,7 @@ export default function Mapped (props) {
             {/*Map*/}
             <Map
             className = 'map'
+            zoomSnap = {false}
             onBoundsChanged={({zoom, center}) => {
                setZoom(zoom)
                setPlaceLocation(center)

@@ -16,7 +16,6 @@
     "react-scripts": "5.0.1",
     "react-window": "^1.8.8",
     "serve": "^14.1.2",
-    "sleep-promise": "^9.1.0",
     "suspense": "^0.0.1",
     "swiper": "^8.4.4",
     "web-vitals": "^2.1.4"
