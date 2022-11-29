@@ -42,6 +42,7 @@ export default function Mapped (props) {
     const [state, dispatch] = React.useReducer(reducer, {places: []})
     const locRef = React.useRef(props.userLocation)
     const zoomRef = React.useRef(12)
+    const [trigger, setTrigger] = React.useState(false)
     
     //get markers from props as list then map to markers
     const markers = useMemo(
@@ -104,8 +105,8 @@ export default function Mapped (props) {
                 navigate = {(location) => {
                 locRef.current = location;
                 zoomRef.current = 18
-            }}
-                navigation = {props.navigation}/>
+                setTrigger(prev => !prev)
+            }}/>
         )
     }, [state.places, swiperIndex])
     
@@ -155,7 +156,6 @@ export default function Mapped (props) {
             }}
             minZoom = {10}
             center = {locRef.current}
-            showsUserLocation = {true}
             zoom = {zoomRef.current}
             >
                 {markers}
