@@ -40,8 +40,8 @@ export default function Mapped (props) {
     const [swiperIndex, setSwiperIndex] = React.useState(0)
     const [cards, toggleCards] = React.useState(false)
     const [state, dispatch] = React.useReducer(reducer, {places: []})
-    const [placeLocation, setPlaceLocation] = React.useState(props.userLocation)
-    const [zoom, setZoom] = React.useState(12)
+    const locRef = React.useRef(props.userLocation)
+    const zoomRef = React.useRef(12)
     
     //get markers from props as list then map to markers
     const markers = useMemo(
@@ -56,16 +56,12 @@ export default function Mapped (props) {
         
         return (
          <Marker
-         color = 'pink'
-         /*onMouseOver={() => {
-            setSwiperIndex(index)
-            toggleCards(true)
-        }}*/
+         color = {'pink'}
          index = {index}
          loadingEnabled = {true}
          onClick = {() => {
-            setZoom(18)
-            setPlaceLocation([lat , lon -  .0005])
+            zoomRef.current = 18
+            locRef.current = [lat , lon -  .0005]
             setSwiperIndex(index)
             toggleCards(true)
         }}
@@ -78,7 +74,7 @@ export default function Mapped (props) {
 
     useEffect(() => {
         dispatch({type: 'places-cleared'})
-        setPlaceLocation(props.userLocation)
+        locRef.current = props.userLocation
         let count = 0;
         let place;
         let seen = new Set()
@@ -95,7 +91,7 @@ export default function Mapped (props) {
             }
         dispatch({type: 'places-added', payload: total})
         }
-        setZoom(14)
+        zoomRef.current = 14
     }, [props.places, props.userLocation])
     //end of temporary block
 
@@ -106,8 +102,8 @@ export default function Mapped (props) {
                 index = {swiperIndex}
                 card_lst = {state.places} 
                 navigate = {(location) => {
-                setPlaceLocation(location);
-                setZoom(18)
+                locRef.current = location;
+                zoomRef.current = 18
             }}
                 navigation = {props.navigation}/>
         )
@@ -154,13 +150,13 @@ export default function Mapped (props) {
             className = 'map'
             zoomSnap = {false}
             onBoundsChanged={({zoom, center}) => {
-               setZoom(zoom)
-               setPlaceLocation(center)
+               zoomRef.current = zoom
+               locRef.current = center
             }}
-            minZoom = {12}
-            center = {placeLocation}
+            minZoom = {10}
+            center = {locRef.current}
             showsUserLocation = {true}
-            zoom = {zoom}
+            zoom = {zoomRef.current}
             >
                 {markers}
                 {star}
