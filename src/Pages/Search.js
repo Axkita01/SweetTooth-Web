@@ -17,7 +17,7 @@ export default function Search(props) {
         }
 
         else {
-            localStorage.setItem('search', JSON.stringify([true, true, true, true]))
+            localStorage.setItem('search', JSON.stringify({search: [true, true, true, true]}))
         }
     }, [])
   

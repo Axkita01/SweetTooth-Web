@@ -10,6 +10,17 @@ import LoadingPage from './Pages/LoadingPage';
 
 const searchArr = ['Coffee', 'Boba', 'Bakery', 'Ice Cream'] 
 
+function inSession() {
+    let session = sessionStorage.getItem('session');
+    if (session) {
+        return true;
+    }
+
+    else {
+        return false;
+    }
+}
+
 //Function to get time since last load in hours. If no previous time, return 24 hours
 function getTimeSinceLastLoad() {
     let lastLoad = localStorage.getItem('prevTime');
@@ -23,6 +34,16 @@ function getTimeSinceLastLoad() {
     }
 
     return timeSinceLastLoad;
+}
+
+function findDistance (lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;    // Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
 
@@ -49,18 +70,15 @@ export default function App() {
 
   //Find distance between two points given two sets of latitude and
   //longitude coordinates
-  function findDistance (lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;    // Math.PI / 180
-    var c = Math.cos;
-    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-            c(lat1 * p) * c(lat2 * p) * 
-            (1 - c((lon2 - lon1) * p))/2;
-  
-    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-  }
 
   
   React.useEffect(() => {
+    if (inSession()) {
+          locationRef.current = JSON.parse(sessionStorage.getItem('sessionLoc'))
+          setLocationInaccurate(false)
+        }
+
+    else {
     navigator.geolocation.getCurrentPosition((position) => {
       if (!navigator.geolocation) {
         setLocationInaccurate(true)
@@ -75,6 +93,8 @@ export default function App() {
         setLocationInaccurate(false)
       }
     }, () => {alert('Location not enabled')},{enableHighAccuracy: true, timeout:5000})
+  }
+    
   }, [])
 
   React.useEffect(() => {
@@ -84,7 +104,8 @@ export default function App() {
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
       })
-
+      sessionStorage.setItem('session', true)
+      sessionStorage.setItem('sessionLoc', JSON.stringify(locationRef.current))
       let prevLocation = localStorage.getItem('userLocation')
       let prevDistance;
       if (prevLocation) {
@@ -113,7 +134,6 @@ export default function App() {
       else {
         //store current time/date if not loaded within 24 hours
         localStorage.setItem('prevTime', Date.now())
-        console.log(searchArr)
         for (let index = 0; index < searchArr.length; index++) {
            await axios.get(`${process.env.REACT_APP_API_URL}/places`,
            {
@@ -153,11 +173,13 @@ export default function App() {
     localStorage.setItem('userLocation', JSON.stringify({lat: locationRef.current.coords.latitude, lng: locationRef.current.coords.longitude}))
   }
   
-      let search = localStorage.getItem('search')
-      localStorage.setItem('places', JSON.stringify(p))
+        let search = localStorage.getItem('search')
+        //console.log(search)
+        localStorage.setItem('places', JSON.stringify(p))
       
           if (search) {
             search = JSON.parse(search).search
+            //console.log(search)
             searchChange(search, p)
           }
           else {
