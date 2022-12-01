@@ -35,7 +35,7 @@ export default function App() {
   const [loading, setLoading] = React.useState(true)
   const locationRef = React.useRef(null)
 
-  
+  const page = window.location.pathname
   function searchChange (searchSelect, places) {
     let filter = []
     for (let i = 0; i < searchSelect.length; i++) {
@@ -79,16 +79,15 @@ export default function App() {
 
   React.useEffect(() => {
     (async () => {
-      if (locationRef.current !== null && !locationInaccurate) {
+      if (locationRef.current !== null && !locationInaccurate && page === '/') {
+        
       setUserLocation({
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
       })
-
-      let prevLocation = localStorage.getItem('userLocation')
+      let prevLocation = JSON.parse(localStorage.getItem('userLocation'))
       let prevDistance;
-      if (prevLocation) {
-        prevLocation = JSON.parse(prevLocation)
+      if (prevLocation !== null && prevLocation !== undefined) {
         prevDistance = findDistance(prevLocation.lat, prevLocation.lng, locationRef.current.coords.latitude, locationRef.current.coords.longitude)
       }
 
@@ -102,7 +101,6 @@ export default function App() {
       
       let p = [[], [], [], []];
       let timeSinceLastLoad = getTimeSinceLastLoad();
-      prevDistance = findDistance(prevLocation.lat, prevLocation.lng, locationRef.current.coords.latitude, locationRef.current.coords.longitude)
       //Load cached places if loaded within 24 hours and within 5 km of last load
       if (prevDistance < 5 && timeSinceLastLoad < 24) {
         var prevPlaces = localStorage.getItem('places')
