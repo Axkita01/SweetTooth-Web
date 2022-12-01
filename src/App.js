@@ -61,6 +61,13 @@ export default function App() {
 
   
   React.useEffect(() => {
+    let sessionLocation = sessionStorage.getItem('sessionLocation')
+    if (sessionLocation && sessionLocation !== '{}' && page === '/') {
+      locationRef.current = JSON.parse(sessionLocation)
+      setLocationInaccurate(false)
+    }
+
+    else {
     navigator.geolocation.getCurrentPosition((position) => {
       if (!navigator.geolocation) {
         setLocationInaccurate(true)
@@ -72,15 +79,22 @@ export default function App() {
 
       else {
         locationRef.current = position
+        let obj = {
+          coords: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          }
+        }
+        sessionStorage.setItem('sessionLocation', JSON.stringify(obj))
         setLocationInaccurate(false)
       }
     }, () => {alert('Location not enabled')},{enableHighAccuracy: true, timeout:5000})
-  }, [])
+  }}, [])
 
   React.useEffect(() => {
     (async () => {
       if (locationRef.current !== null && !locationInaccurate && page === '/') {
-        
       setUserLocation({
         lat: locationRef.current.coords.latitude,
         lng: locationRef.current.coords.longitude
@@ -183,22 +197,25 @@ export default function App() {
           userLocation = {[userLocation.lat, userLocation.lng]
           }/>: <LoadingPage/>): 
           <LocationInput 
-            handleSubmit = {(address) => {
-              axios.get(
+            handleSubmit = {async (address) => {
+              await axios.get(
                 `${process.env.REACT_APP_API_URL}/geocode`,
                 {params: {
                   q: address,
                   format: 'json'
                 }}
               ).then((response) => {
-                
-                locationRef.current = {
+                let obj = {
                   coords: {
                     latitude: response.data[0].lat,
                     longitude: response.data[0].lon
                   }
                 }
+
+                locationRef.current = obj
+                sessionStorage.setItem('sessionLocation', JSON.stringify(obj))
                 setLocationInaccurate(false)
+
               }).catch((e) => {
                 alert('Invalid address')
               })
@@ -218,6 +235,13 @@ export default function App() {
             useCurrentLocation = {() => {
               navigator.geolocation.getCurrentPosition((position) => {
                   locationRef.current = position
+                  let obj = {
+                    coords: {
+                      latitude: position.coords.latitude,
+                      longitude: position.coords.longitude,
+                      accuracy: position.coords.accuracy
+                    }}
+                  sessionStorage.setItem('sessionLocation', JSON.stringify(obj))
                   setLocationInaccurate(false)
               }, () => alert('Failed to get location'),{enableHighAccuracy: true})
             }}
@@ -233,6 +257,7 @@ export default function App() {
               <h1>Clearing cache</h1>
               <button onClick={() => {
                 localStorage.clear()
+                sessionStorage.clear()
                 window.location.reload()
               }}>Clear</button>
             </div>
