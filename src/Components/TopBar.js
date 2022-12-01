@@ -39,6 +39,15 @@ export default function TopBar (props) {
             >
                Reset Location
             </button>
+
+            <button 
+            onClick = {() => props.backToSelf()}
+            className = 'navButton'
+            id = 'three'
+            >
+               Back To Self
+            </button>
+
         </div>
     )
     

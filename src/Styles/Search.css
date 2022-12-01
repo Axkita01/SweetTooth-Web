@@ -23,6 +23,9 @@
     display: flex;
     background-color: white;
     padding: 10;
+    font-family: 'Kanit', sans-serif;
+    border-width: 0;
+    cursor: pointer;
     border-radius: 10px;
     width: 30vw;
     height: 5vw;

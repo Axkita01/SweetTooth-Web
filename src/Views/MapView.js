@@ -72,7 +72,7 @@ export default function Mapped (props) {
          >
             
         </Marker>)} ))}, [state.places])
-
+    
     useEffect(() => {
         dispatch({type: 'places-cleared'})
         locRef.current = props.userLocation
@@ -131,9 +131,18 @@ export default function Mapped (props) {
             cardToggle = {() => {toggleCards((prev) => !prev)}}
             settingsToggle = {() => {window.location.href = '/settings'}}
             cardsEnabled = {toggleCards}
+            backToSelf = {
+                () => {
+                    locRef.current = props.userLocation
+                    zoomRef.current = 14
+                    setTrigger(prev => !prev)
+                }
+            }
             ></TopBar>
         )
     }, [])
+    
+
     
     return (
     

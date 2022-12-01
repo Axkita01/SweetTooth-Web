@@ -202,7 +202,7 @@ export default function App() {
                 }
                 setLocationInaccurate(false)
               }).catch((e) => {
-                console.log(e)
+                alert('Invalid address')
               })
             }}
 

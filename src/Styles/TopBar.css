@@ -15,11 +15,14 @@
 
 .navButton:hover {
     transition: all .2s ease-in-out;
-    background-color: rgb(255,170,170);
+    background-color: white; /*rgb(255,170,170);*/
     cursor: pointer;
+    color: gray;
+    transform: scale(1.07);
 }
 
 .navButton {
+    transition: all .2s ease-in-out;
     display: flex;
     height: 4vw;
     width: 7vw;
@@ -33,7 +36,7 @@
     border-radius: 10px;
     border-style: solid;
     border-color:white;
-    border-width: 1px;
+    border-width: 0px;
     font-family: 'Kanit';
     color: white;
     line-height: 1;
@@ -42,15 +45,19 @@
 }
 
 #zero {
-    left: 26vw;
+    left: 16vw;
 }
 
 #one {
-    left: 46vw;
+    left: 36vw;
 }
 
 #two {
-    left: 66vw;
+    left: 56vw;
+}
+
+#three {
+    left: 76vw;
 }
 
 .logo {
