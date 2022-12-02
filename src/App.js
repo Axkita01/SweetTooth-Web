@@ -176,13 +176,13 @@ export default function App() {
             searchChange([true, true, true, true], p);
             localStorage.setItem('search', JSON.stringify({search: [true, true, true, true]}))
           }
-
+          setLoading(false)
       }
+    else {setLoading(false)}
     })();
-    setLoading(false)
   }
   , [locationInaccurate, locationRef.current])
-
+  
   return (
     //Main application
     <>
@@ -226,6 +226,14 @@ export default function App() {
               if (prevLocation) {
                 prevLocation = JSON.parse(prevLocation)
                 locationRef.current = {coords: {accuracy: 0, latitude: prevLocation.lat, longitude: prevLocation.lng}}
+                let obj = {
+                  coords: {
+                    latitude: prevLocation.lat,
+                    longitude: prevLocation.lng,
+                    accuracy: 0
+                  }
+                }
+                sessionStorage.setItem('sessionLocation', JSON.stringify(obj))
                 setLocationInaccurate(false)
               }
               else {
