@@ -5,6 +5,7 @@ import Mapped from './Views/MapView';
 import Search from './Pages/Search';
 import LocationInput from './Components/LocationInput';
 import LoadingPage from './Pages/LoadingPage';
+import StartingMenu from './Components/StartingMenu';
 
 
 
@@ -186,6 +187,7 @@ export default function App() {
   return (
     //Main application
     <>
+      <StartingMenu/>
       <Router>
         <Routes>
           <Route path="/" element= {
