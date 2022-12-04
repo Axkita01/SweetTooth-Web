@@ -25,7 +25,9 @@
     justify-content: center;
     background-color: lightpink;
     animation: slideInUp 1.3s ease 0s;
-    border-radius: 2vw
+    border-radius: 2vw;
+    overflow: hidden;
+
 }
 
 .hideScreen {
