@@ -90,7 +90,7 @@ export default function App() {
         sessionStorage.setItem('sessionLocation', JSON.stringify(obj))
         setLocationInaccurate(false)
       }
-    }, () => {alert('Location not enabled')},{enableHighAccuracy: true, timeout:5000})
+    }, () => {alert('Location not enabled'); setLocationInaccurate(true)},{enableHighAccuracy: true, timeout:3000})
   }}, [])
 
   React.useEffect(() => {
